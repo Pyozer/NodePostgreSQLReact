@@ -41,9 +41,9 @@ api.get("/:userId", async (req, res) => {
   }
 })
 
-api.put("/:userId", async (req, res) => {
+api.put("/:userId", async (req, res) => {  
   try {
-    if (req.user.uuid !== req.params.uuid)
+    if (req.user.uuid !== req.params.userId)
       throw new Error("You can't edit other user data !")
 
     const { nickname, email, password, password_confirmation } = req.body
