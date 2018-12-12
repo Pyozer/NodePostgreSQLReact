@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { LoginContext } from '../Context';
+import { LoginContext, PageTitle } from '../Context';
 import Input from '../components/Input';
 import FormCard from '../components/FormCard';
 import FullCenter from '../components/FullCenter';
@@ -43,14 +43,16 @@ class SignIn extends Component {
     render() {
         const { error } = this.state
         return (
-            <FullCenter className="container">
-                <div className="col col-md-8 col-lg-6">
-                    <FormCard title="Sign In" onSubmit={this.onSubmit} error={error}>
-                        <Input label="Nickname" name="nickname" onChange={this.onInputChange} className="mt-4" />
-                        <Input label="Password" name="password" type="password" onChange={this.onInputChange} className="mt-3" />
-                    </FormCard>
-                </div>
-            </FullCenter>
+            <PageTitle title="Sign In">
+                <FullCenter className="container">
+                    <div className="col col-md-8 col-lg-6">
+                        <FormCard title="Sign In" onSubmit={this.onSubmit} error={error}>
+                            <Input label="Nickname" name="nickname" onChange={this.onInputChange} className="mt-4" />
+                            <Input label="Password" name="password" type="password" onChange={this.onInputChange} className="mt-3" />
+                        </FormCard>
+                    </div>
+                </FullCenter>
+            </PageTitle>
         )
     }
 }
