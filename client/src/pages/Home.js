@@ -1,5 +1,5 @@
-import React from 'react';
-import { PageTitle } from '../Context';
+import React from 'react'
+import { PageTitle } from '../Context'
 
 const Home = () => (
     <PageTitle title="Home">
@@ -11,4 +11,4 @@ const Home = () => (
     </PageTitle>
 )
 
-export default Home;
+export default Home

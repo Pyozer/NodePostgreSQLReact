@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react'
 
-const DEFAULT_TITLE = "Project";
+const DEFAULT_TITLE = "Project"
 
 export const PageTitle = ({ title, children }) => {
-    document.title = (title ? `${title}  | ` : '') + DEFAULT_TITLE;
-    return children;
-};
+    document.title = (title ? `${title}  | ` : '') + DEFAULT_TITLE
+    return children
+}
 
 export const LoginContext = React.createContext({
     isConnected: false,
@@ -13,6 +13,6 @@ export const LoginContext = React.createContext({
     authToken: null,
     connectUser: (token, user) => { },
     logoutUser: () => { },
-});
+})
 
 export default { PageTitle, LoginContext }

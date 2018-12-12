@@ -1,12 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-import Home from './pages/Home';
-import SignIn from './pages/SignIn';
-import SignUp from './pages/SignUp';
-import Dashboard from './pages/Dashboard';
-import PageNotFound from './pages/PageNotFound';
-import { LoginContext } from './Context';
-import Appbar from './components/Appbar';
+import PageNotFound from './pages/PageNotFound'
+import { LoginContext } from './Context'
+import Appbar from './components/Appbar'
+import { Home } from './pages'
+import { SignRoute, DashboardRoute } from './routes/Routes'
 
 /*
 1. Gérer persitance des données (localStorage)
@@ -20,7 +18,6 @@ import Appbar from './components/Appbar';
 */
 
 class App extends Component {
-
   constructor(props) {
     super(props)
     this.state = { connectUser: this.connectUser, logoutUser: this.logoutUser }
@@ -60,17 +57,16 @@ class App extends Component {
             <div className="d-flex flex-column minh-100">
               <Appbar />
               <Switch>
-                <Route path="/" exact component={Home} />
-                {!isConnected && <Route path="/signIn" exact component={SignIn} />}
-                {!isConnected && <Route path="/signUp" exact component={SignUp} />}
-                {isConnected && <Route path="/dashboard" exact component={Dashboard} />}
+                <Route exact path="/" component={Home} />
+                {!isConnected && <Route path="/auth" component={SignRoute} />}
+                {isConnected && <Route path="/dashboard" component={DashboardRoute} />}
                 <Route component={PageNotFound} />
               </Switch>
             </div>
           </Router>
         </LoginContext.Provider>
-    );
+    )
   }
 }
 
-export default App;
+export default App

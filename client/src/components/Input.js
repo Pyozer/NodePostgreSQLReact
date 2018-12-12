@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 const Input = ({ type = "text", label, name, id, onChange, value, placeholder = "", className = "", inputClass = "" }) => (
     <div className={"form-group " + className}>
@@ -14,4 +14,4 @@ const Input = ({ type = "text", label, name, id, onChange, value, placeholder = 
     </div>
 )
 
-export default Input;
+export default Input

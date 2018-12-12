@@ -23,7 +23,7 @@ api.get("/:userId", async (req, res) => {
     res.status(200).json({
       data: { user: req.user }
     })
-    return;
+    return
   }
   try {
     const user = await User.findByPk(req.params.userId)

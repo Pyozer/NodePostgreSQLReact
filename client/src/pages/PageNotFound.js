@@ -1,5 +1,5 @@
-import React from 'react';
-import { PageTitle } from '../Context';
+import React from 'react'
+import { PageTitle } from '../Context'
 
 const PageNotFound = () => (
     <PageTitle title="Page Not Found">
@@ -7,4 +7,4 @@ const PageNotFound = () => (
     </PageTitle>
 )
 
-export default PageNotFound;
+export default PageNotFound

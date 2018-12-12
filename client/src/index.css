@@ -17,3 +17,11 @@ a {
 .full-rounded {
   border-radius: 50px;
 }
+
+/* Bootstrap override */
+.form-control {
+  color: #111;
+}
+.form-control::placeholder {
+  color: #BBB;
+}

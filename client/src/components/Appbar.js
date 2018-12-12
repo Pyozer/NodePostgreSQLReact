@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { LoginContext } from '../Context';
+import { LoginContext } from '../Context'
 
 const Appbar = ({ history }) => {
     return (
@@ -23,10 +23,10 @@ const Appbar = ({ history }) => {
                                 {isConnected ? (
                                     <>
                                         <Link to="/dashboard">
-                                            <button className="btn btn-success mr-2" type="button">Dashboard</button>
+                                            <button className="btn btn-primary mr-2" type="button">Dashboard</button>
                                         </Link>
                                         <button
-                                            className="btn btn-outline-success"
+                                            className="btn btn-outline-primary"
                                             type="button"
                                             onClick={() => {
                                                 logoutUser()
@@ -37,11 +37,11 @@ const Appbar = ({ history }) => {
                                     </>
                                 ) : (
                                         <>
-                                            <Link to="/signUp" className="mr-1">
-                                                <button className="btn btn-success mr-2" type="button">Sign Up</button>
+                                            <Link to="/auth/signUp" className="mr-1">
+                                                <button className="btn btn-primary mr-2" type="button">Sign Up</button>
                                             </Link>
-                                            <Link to="/signIn">
-                                                <button className="btn btn-outline-success" type="button">Sign In</button>
+                                            <Link to="/auth/signIn">
+                                                <button className="btn btn-outline-primary" type="button">Sign In</button>
                                             </Link>
                                         </>
                                     )}
@@ -52,7 +52,7 @@ const Appbar = ({ history }) => {
             )}
         </LoginContext.Consumer>
 
-    );
-};
+    )
+}
 
-export default withRouter(Appbar);
+export default withRouter(Appbar)

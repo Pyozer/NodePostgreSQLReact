@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import { LoginContext, PageTitle } from '../Context';
-import Input from '../components/Input';
-import FormCard from '../components/FormCard';
-import FullCenter from '../components/FullCenter';
+import { LoginContext, PageTitle } from '../../Context'
+import { Input, FormCard, HeaderTitle, HorizontalCenter } from '../../components'
 
-class SignUp extends Component {
-    state = { error: null, nickname: "", email: "", password: "", password_confirmation: "" }
+class SignIn extends Component {
+    state = { error: null, nickname: "", password: "" }
 
     onInputChange = (e) => {
         const { name, value } = e.target
@@ -14,11 +12,15 @@ class SignUp extends Component {
         })
     }
 
+    onError(error) {
+        this.setState({ error: error })
+    }
+
     onSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault()
 
         try {
-            const resultRaw = await fetch('/api/auth/register', {
+            const resultRaw = await fetch('/api/auth/login', {
                 method: 'POST',
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(this.state)
@@ -26,34 +28,33 @@ class SignUp extends Component {
             const result = await resultRaw.json()
 
             if (result.error) {
-                this.setState({ error: result.error.message })
+                this.onError(result.error.message)
             } else {
                 this.context.connectUser(result.meta.token, result.data.user)
                 this.props.history.push('/dashboard')
             }
-        } catch ({ message }) {
-            this.setState({ error: message })
+        } catch (err) {
+            this.onError(err.message)
         }
     }
 
     render() {
         const { error } = this.state
         return (
-            <PageTitle title="Sign Up">
-                <FullCenter className="container">
+            <PageTitle title="Sign In">
+                <HorizontalCenter className="container">
+                    <HeaderTitle title="Sign In" />
                     <div className="col col-md-8 col-lg-6">
-                        <FormCard title="Sign Up" onSubmit={this.onSubmit} error={error}>
+                        <FormCard btnValue="Sign In" onSubmit={this.onSubmit} error={error}>
                             <Input label="Nickname" name="nickname" onChange={this.onInputChange} className="mt-4" />
-                            <Input label="Email" name="email" type="email" onChange={this.onInputChange} className="mt-3" />
                             <Input label="Password" name="password" type="password" onChange={this.onInputChange} className="mt-3" />
-                            <Input label="Password confirmation" name="password_confirmation" type="password" onChange={this.onInputChange} className="mt-3" />
                         </FormCard>
                     </div>
-                </FullCenter>
+                </HorizontalCenter>
             </PageTitle>
         )
     }
 }
-SignUp.contextType = LoginContext
+SignIn.contextType = LoginContext
 
-export default SignUp
+export default SignIn
