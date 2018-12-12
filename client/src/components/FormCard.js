@@ -1,11 +1,11 @@
 import React from 'react'
 import Card from './Card'
 
-const FormCard = ({ title, error, onSubmit, btnValue, children }) => (
+const FormCard = ({ title, message, onSubmit, btnValue, children }) => (
     <Card className="w-100">
         {title && <h3 className="card-title mb-5 text-center">{title}</h3>}
 
-        {error && <div className="alert alert-danger" role="alert">{error}</div>}
+        {message && <div className={`alert alert-${message.type}`} role="alert">{message.msg}</div>}
 
         <form onSubmit={onSubmit}>
             {children}

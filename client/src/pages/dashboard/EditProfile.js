@@ -3,14 +3,48 @@ import { FormCard, Input, HeaderTitle } from '../../components'
 import { PageTitle, LoginContext } from '../../Context'
 
 class EditProfile extends Component {
-    state = { error: null }
+    state = { message: null }
 
-    onSubmit = (e) => {
+    onSubmit = async (e) => {
+        e.preventDefault()
 
+        const user = {}
+
+        for (let [name, value] of new FormData(e.target).entries())
+            if (value.trim().length > 0)
+                user[name] = value.trim()
+
+        try {
+            const resultRaw = await fetch(`/api/users/${this.context.user.uuid}`, {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${this.context.authToken}`
+                },
+                body: JSON.stringify(user)
+            })
+            const result = await resultRaw.json()
+
+            if (result.error) {
+                this.setMessage(result.error.message, "danger")
+            } else {
+                this.context.updateUser(result.data.user)
+                this.setMessage("User profil updated", "success")
+            }
+        } catch ({ message }) {
+            this.setMessage(message, "danger")
+        }
+    }
+
+    setMessage(msg, type) {
+        this.setState({
+            message: { msg, type }
+        })
     }
 
     render() {
-        const { error } = this.state
+        const { message } = this.state
+
         return (
             <PageTitle title="Edit profile">
                 <div className="container">
@@ -19,9 +53,9 @@ class EditProfile extends Component {
                         <div className="col col-md-8 col-lg-6 ">
                             <LoginContext.Consumer>
                                 {({ user }) => (
-                                    <FormCard error={error} onSubmit={this.onSubmit} btnValue="Update">
-                                        <Input type="text" label="Nickname" name="nickname" value={user.nickname} />
-                                        <Input type="email" label="Email" name="email" value={user.email} />
+                                    <FormCard message={message} onSubmit={this.onSubmit} btnValue="Update">
+                                        <Input type="text" label="Nickname" name="nickname" placeholder={user.nickname} />
+                                        <Input type="email" label="Email" name="email" placeholder={user.email} />
                                         <Input type="password" label="Password" name="password" placeholder="Leave blank to ignore" />
                                         <Input type="password" label="Password confirmation" name="password_confirmation" placeholder="Leave blank to ignore" />
                                     </FormCard>
@@ -34,5 +68,6 @@ class EditProfile extends Component {
         )
     }
 }
+EditProfile.contextType = LoginContext
 
 export default EditProfile

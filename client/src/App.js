@@ -20,7 +20,7 @@ import { SignRoute, DashboardRoute } from './routes/Routes'
 class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { connectUser: this.connectUser, logoutUser: this.logoutUser }
+    this.state = { connectUser: this.connectUser, logoutUser: this.logoutUser, updateUser: this.updateUser }
   }
 
   componentDidMount() {
@@ -43,6 +43,10 @@ class App extends Component {
     localStorage.setItem('authToken', null)
     localStorage.setItem('user', null)
     this.updateLoginState(false, null, null)
+  }
+
+  updateUser = (user) => {
+    this.setState({ user })
   }
 
   updateLoginState = (isConnected, user, authToken) => {

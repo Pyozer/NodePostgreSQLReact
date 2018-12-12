@@ -12,6 +12,7 @@ export const LoginContext = React.createContext({
     user: null,
     authToken: null,
     connectUser: (token, user) => { },
+    updateUser: (user) => {},
     logoutUser: () => { },
 })
 

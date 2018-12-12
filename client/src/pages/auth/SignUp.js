@@ -24,24 +24,30 @@ class SignUp extends Component {
             const result = await resultRaw.json()
 
             if (result.error) {
-                this.setState({ error: result.error.message })
+                this.setMessage(result.error.message, "danger")
             } else {
                 this.context.connectUser(result.meta.token, result.data.user)
                 this.props.history.push('/dashboard')
             }
         } catch ({ message }) {
-            this.setState({ error: message })
+            this.setMessage(message, "danger")
         }
     }
 
+    setMessage(msg, type) {
+        this.setState({
+            message: { msg, type }
+        })
+    }
+
     render() {
-        const { error } = this.state
+        const { message } = this.state
         return (
             <PageTitle title="Sign Up">
                 <HorizontalCenter className="container">
                     <HeaderTitle title="Sign Up" />
                     <div className="col col-md-8 col-lg-6">
-                        <FormCard btnValue="Sign In" onSubmit={this.onSubmit} error={error}>
+                        <FormCard btnValue="Sign In" onSubmit={this.onSubmit} message={message}>
                         <Input label="Nickname" name="nickname" onChange={this.onInputChange} className="mt-4" />
                             <Input label="Email" name="email" type="email" onChange={this.onInputChange} className="mt-3" />
                             <Input label="Password" name="password" type="password" onChange={this.onInputChange} className="mt-3" />
