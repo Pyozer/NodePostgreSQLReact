@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Home from './pages/Home';
 import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
@@ -52,38 +52,13 @@ class App extends Component {
     this.setState({ isConnected, user, authToken })
   }
 
-  buildAppbarBtn = (isConnected) => {
-    if (isConnected) {
-      return (
-        <form className="form-inline">
-          <Link to="/dashboard">
-            <button className="btn btn-success mr-2" type="button">Dashboard</button>
-          </Link>
-          <button className="btn btn-outline-success" type="button"onClick={this.logoutUser}>Logout</button>
-        </form>
-      )
-    }
-    return (
-      <form className="form-inline">
-        <Link to="/signUp" className="mr-1">
-          <button className="btn btn-success mr-2" type="button">Sign Up</button>
-        </Link>
-        <Link to="/signIn">
-          <button className="btn btn-outline-success" type="button">Sign In</button>
-        </Link>
-      </form>
-    )
-  }
-
   render() {
     const { isConnected } = this.state
     return (
         <LoginContext.Provider value={this.state}>
           <Router>
             <div className="d-flex flex-column minh-100">
-              <Appbar>
-                {this.buildAppbarBtn(isConnected)}
-              </Appbar>
+              <Appbar />
               <Switch>
                 <Route path="/" exact component={Home} />
                 {!isConnected && <Route path="/signIn" exact component={SignIn} />}
