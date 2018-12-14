@@ -25,18 +25,16 @@ api.post("/register", async (req, res) => {
       data: { user },
       meta: { token }
     })
-  } catch (err) {
-    res.json({ error: { message: err.message } })
+  } catch ({ message }) {
+    res.json({ error: { message } })
   }
 })
 
 api.post("/login", async (req, res) => {
-  passport.authenticate("local", { session: false }, (err, user) => {
-    if (err) {
+  passport.authenticate("local", { session: false }, (message, user) => {
+    if (message) {
       res.status(400).json({
-        error: {
-          message: err
-        }
+        error: { message }
       })
       return
     }

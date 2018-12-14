@@ -1,4 +1,5 @@
 import passport from "passport"
+import { Op } from 'sequelize'
 import { Strategy as LocalStrategy } from "passport-local"
 import { Strategy as JwtStrategy, ExtractJwt } from "passport-jwt"
 import User from "../models/user"
@@ -10,7 +11,13 @@ passport.use(
       passwordField: "password"
     },
     async (nickname, password, next) => {
-      const user = await User.findOne({ where: { nickname } })
+      const user = await User.findOne({
+        where: {
+          nickname: {
+            [Op.iLike]: `%${nickname}%`
+          }
+        }
+      })
 
       if (!user) {
         return next("Nickname doesn't exist")
