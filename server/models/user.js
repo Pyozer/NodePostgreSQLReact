@@ -29,7 +29,10 @@ export default class User extends Model {
           type: Sequelize.STRING,
           allowNull: false,
           validate: {
-            isEmail: true
+            isEmail: {
+              args: true,
+              msg: "Email address is incorrect"
+            }
           },
           unique: {
             args: true,
