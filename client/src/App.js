@@ -5,6 +5,7 @@ import { LoginContext } from './Context'
 import Appbar from './components/Appbar'
 import { Home } from './pages'
 import { SignRoute, DashboardRoute } from './routes/Routes'
+import { NotSecureRoute, SecureRoute } from './routes/CustomRoute';
 
 /*
 1. Gérer persitance des données (localStorage)
@@ -54,7 +55,6 @@ class App extends Component {
   }
 
   render() {
-    const { isConnected } = this.state
     return (
         <LoginContext.Provider value={this.state}>
           <Router>
@@ -62,8 +62,8 @@ class App extends Component {
               <Appbar />
               <Switch>
                 <Route exact path="/" component={Home} />
-                {!isConnected && <Route path="/auth" component={SignRoute} />}
-                {isConnected && <Route path="/dashboard" component={DashboardRoute} />}
+                <NotSecureRoute path="/auth" component={SignRoute} />
+                <SecureRoute path="/dashboard" component={DashboardRoute} />
                 <Route component={PageNotFound} />
               </Switch>
             </div>
