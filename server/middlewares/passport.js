@@ -20,7 +20,7 @@ passport.use(
         return next("Password doesn't match")
       }
 
-      return next(false, user)
+      return next(null, user)
     }
   )
 )

@@ -38,6 +38,7 @@ api.post("/login", async (req, res) => {
           message: err
         }
       })
+      return
     }
 
     const { uuid, nickname, email } = user
