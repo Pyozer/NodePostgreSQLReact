@@ -14,6 +14,11 @@ class EditProfile extends Component {
             if (value.trim().length > 0)
                 user[name] = value.trim()
 
+        if (Object.keys(user).length === 0) {
+            this.setMessage("You must provide at least one modification to update your profile !", "danger")
+            return
+        }
+
         try {
             const resultRaw = await fetch(`/api/users/${this.context.user.uuid}`, {
                 method: 'PUT',
@@ -29,7 +34,7 @@ class EditProfile extends Component {
                 this.setMessage(result.error.message, "danger")
             } else {
                 this.context.updateUser(result.data.user)
-                this.setMessage("User profil updated", "success")
+                this.setMessage("Your profile has been successfully updated !", "success")
             }
         } catch ({ message }) {
             this.setMessage(message, "danger")
@@ -54,6 +59,8 @@ class EditProfile extends Component {
                             <LoginContext.Consumer>
                                 {({ user }) => (
                                     <FormCard message={message} onSubmit={this.onSubmit} btnValue="Update">
+                                        <p><small><strong>Ignore a field to not update it</strong></small></p>
+                                        <hr />
                                         <Input type="text" label="Nickname" name="nickname" placeholder={user.nickname} />
                                         <Input type="email" label="Email" name="email" placeholder={user.email} />
                                         <Input type="password" label="Password" name="password" placeholder="Leave blank to ignore" />
