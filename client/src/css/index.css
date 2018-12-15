@@ -36,7 +36,7 @@ a {
   color: #BBB;
 }
 .form-control:focus, .form-control:active  {
-  box-shadow: 0;
+  box-shadow: none;
   border-width: 2px;
   padding: 20px 17px;
 }
