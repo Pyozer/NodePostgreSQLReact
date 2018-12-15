@@ -1,5 +1,6 @@
 import React from 'react'
 import Card from './Card'
+import Button from './Button';
 
 const FormCard = ({ title, message, onSubmit, btnValue, children }) => (
     <Card className="w-100">
@@ -10,9 +11,9 @@ const FormCard = ({ title, message, onSubmit, btnValue, children }) => (
         <form onSubmit={onSubmit}>
             {children}
 
-            <div className="row justify-content-center mt-5">
+            <div className="row justify-content-center mt-4">
                 <div className="col col-md-8 col-lg-6 col-xl-4">
-                    <button type="submit" className="btn btn-primary full-rounded btn-block">{btnValue || title}</button>
+                    <Button type="submit" className="btn-block">{btnValue || title}</Button>
                 </div>
             </div>
         </form>

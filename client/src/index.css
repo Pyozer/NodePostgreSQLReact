@@ -19,10 +19,28 @@ a {
   border-radius: 50px;
 }
 
+.scale-effect {
+  transition: transform 500ms ease; 
+}
+.scale-effect:hover {
+  transform: scale(1.08)
+}
+
 /* Bootstrap override */
 .form-control {
   color: #111;
+  transition: all 350ms ease;
+  padding: 21px 18px;
 }
 .form-control::placeholder {
   color: #BBB;
+}
+.form-control:focus, .form-control:active  {
+  box-shadow: 0;
+  border-width: 2px;
+  padding: 20px 17px;
+}
+
+.rounded {
+  border-radius: .5rem!important;
 }

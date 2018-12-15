@@ -1,12 +1,13 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import { LoginContext } from '../Context'
+import Button from './Button';
 
 const Appbar = ({ history }) => {
     return (
         <LoginContext.Consumer>
             {({ isConnected, logoutUser }) => (
-                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-3">
                     <div className="container">
                         <Link className="navbar-brand" to="/">MyProject</Link>
                         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,32 +17,32 @@ const Appbar = ({ history }) => {
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             <ul className="navbar-nav mr-auto">
                                 <li className="nav-item active">
-                                    <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
+                                    <Link className="nav-link scale-effect" to="/">Home <span className="sr-only">(current)</span></Link>
                                 </li>
                             </ul>
                             <form className="form-inline">
                                 {isConnected ? (
                                     <>
                                         <Link to="/dashboard">
-                                            <button className="btn btn-primary mr-2" type="button">Dashboard</button>
+                                            <Button className="mr-2">Dashboard</Button>
                                         </Link>
-                                        <button
-                                            className="btn btn-outline-primary"
-                                            type="button"
+                                        <Button
                                             onClick={() => {
                                                 logoutUser()
                                                 history.push('/')
-                                            }}>
+                                            }}
+                                            variant="danger"
+                                            outline={true}>
                                             Logout
-                                        </button>
+                                        </Button>
                                     </>
                                 ) : (
                                         <>
                                             <Link to="/auth/signUp" className="mr-1">
-                                                <button className="btn btn-primary mr-2" type="button">Sign Up</button>
+                                                <Button className="mr-2">Sign Up</Button>
                                             </Link>
                                             <Link to="/auth/signIn">
-                                                <button className="btn btn-outline-primary" type="button">Sign In</button>
+                                                <Button outline={true}>Sign In</Button>
                                             </Link>
                                         </>
                                     )}
