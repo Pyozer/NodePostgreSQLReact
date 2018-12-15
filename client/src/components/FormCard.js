@@ -1,12 +1,13 @@
 import React from 'react'
 import Card from './Card'
 import Button from './Button';
+import Alert from './Alert';
 
 const FormCard = ({ title, message, onSubmit, btnValue, children }) => (
     <Card className="w-100">
         {title && <h3 className="card-title mb-5 text-center">{title}</h3>}
 
-        {message && <div className={`alert alert-${message.type}`} role="alert">{message.msg}</div>}
+        <Alert message={message} />
 
         <form onSubmit={onSubmit}>
             {children}

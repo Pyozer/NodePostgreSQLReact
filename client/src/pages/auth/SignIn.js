@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { LoginContext, PageTitle } from '../../utils/Context'
 import { Input, FormCard, HeaderTitle, HorizontalCenter } from '../../components'
+import { fetchData } from '../../utils/Api';
 
 class SignIn extends Component {
     state = { message: null, nickname: "", password: "" }
@@ -14,21 +15,10 @@ class SignIn extends Component {
 
     onSubmit = async (e) => {
         e.preventDefault()
-
         try {
-            const resultRaw = await fetch('/api/auth/login', {
-                method: 'POST',
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(this.state)
-            })
-            const result = await resultRaw.json()
-
-            if (result.error) {
-                this.setMessage(result.error.message, "danger")
-            } else {
-                this.context.connectUser(result.meta.token, result.data.user)
-                this.props.history.push('/dashboard')
-            }
+            const result = await fetchData('/api/auth/login', null, JSON.stringify(this.state), 'POST')
+            this.context.connectUser(result.meta.token, result.data.user)
+            this.props.history.push('/dashboard')
         } catch ({ message }) {
             this.setMessage(message, "danger")
         }

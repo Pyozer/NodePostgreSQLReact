@@ -5,8 +5,8 @@ import { LoginContext } from '../utils/Context';
 const AuthRoute = ({ component: Component, redirectTo, isSecure, ...rest }) => (
     <Route {...rest} render={props => (
         <LoginContext.Consumer>
-            {({ isConnected }) => (
-                isConnected === isSecure
+            {({ isConnected, user }) => (
+                isConnected === isSecure && ((isSecure && user) || !isSecure)
                     ? <Component {...props} />
                     : <Redirect to={{
                         pathname: redirectTo,
