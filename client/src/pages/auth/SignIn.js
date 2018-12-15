@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { LoginContext, PageTitle } from '../../Context'
+import { LoginContext, PageTitle } from '../../utils/Context'
 import { Input, FormCard, HeaderTitle, HorizontalCenter } from '../../components'
 
 class SignIn extends Component {

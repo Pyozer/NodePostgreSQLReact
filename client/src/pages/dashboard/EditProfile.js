@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { FormCard, Input, HeaderTitle } from '../../components'
-import { PageTitle, LoginContext } from '../../Context'
+import { PageTitle, LoginContext } from '../../utils/Context'
 
 class EditProfile extends Component {
     state = { message: null }

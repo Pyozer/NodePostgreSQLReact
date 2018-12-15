@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { LoginContext, PageTitle } from '../../Context'
+import { LoginContext, PageTitle } from '../../utils/Context'
 import { Card, HeaderTitle } from '../../components'
 import Button from '../../components/Button';
 
@@ -9,7 +9,7 @@ class Dashboard extends Component {
     render() {
         return (
             <PageTitle title="Dashboard">
-                <div className="container mt-5">
+                <div className="container">
                     <div className="d-flex justify-content-between align-items-center">
                         <HeaderTitle title="Dashboard" />
                         <Link to="/dashboard/edit">

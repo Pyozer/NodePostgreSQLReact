@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import PageNotFound from './pages/PageNotFound'
-import { LoginContext } from './Context'
+import { LoginContext } from './utils/Context'
 import Appbar from './components/Appbar'
 import { Home } from './pages'
 import { SignRoute, DashboardRoute } from './routes/Routes'
@@ -24,7 +24,7 @@ class App extends Component {
     this.state = { connectUser: this.connectUser, logoutUser: this.logoutUser, updateUser: this.updateUser }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.updateLoginState(false, null, null)
     this.connectUser(
       localStorage.getItem('authToken'),

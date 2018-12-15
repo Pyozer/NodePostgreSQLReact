@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { LoginContext } from '../Context'
+import { LoginContext } from '../utils/Context'
 import Button from './Button';
 
 const Appbar = ({ history }) => {
