@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Button = ({ children, className, variant = "primary", outline = false, ...rest }) => {
+const Button = ({ children, className = "", variant = "primary", outline = false, ...rest }) => {
     let btnClass = 'btn-'
     if (outline)
         btnClass += 'outline-'
