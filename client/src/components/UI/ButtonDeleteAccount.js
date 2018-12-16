@@ -9,7 +9,7 @@ class ButtonDeleteAccount extends Component {
     deleteUserAccount = async () => {
         try {
             const { user, authToken, logoutUser } = this.context
-            await fetchData(`/api/users/${user.uuid}/delete`, authToken, null, 'DELETE')
+            await fetchData(`/api/users/${user.uuid}`, authToken, null, 'DELETE')
             logoutUser()
         } catch ({ message }) {
             alert(message)

@@ -6,20 +6,18 @@ import passport from "passport"
 const api = Router()
 
 api.post("/register", async (req, res) => {
-  const { nickname, email, password, password_confirmation } = req.body
-
   try {
+    const { nickname, email, password, password_confirmation } = req.body
     const user = new User({
       nickname,
       email,
       password,
       password_confirmation
     })
-
     await user.save()
 
     const payload = { uuid: user.uuid, nickname, email }
-    const token = jwt.sign(payload, "mysupersecret")
+    const token = jwt.sign(payload, "VerySecureKeyToKeepSecret")
 
     res.status(201).json({
       data: { user },
