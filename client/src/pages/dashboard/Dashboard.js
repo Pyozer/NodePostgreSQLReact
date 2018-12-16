@@ -1,20 +1,16 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
+import { HeaderTitle, Button, Alert, AlignCJustifyB } from '../../components/UI'
+import { UserInfos, UserProjects } from '../../components/User';
 import { LoginContext, PageTitle } from '../../utils/Context'
-import { Card, HeaderTitle, Button, Alert } from '../../components/UI'
 import { setLocalUser } from '../../utils/Storage'
 import { fetchData } from '../../utils/Api'
-
-class InfoRender {
-    constructor(title, render) {
-        this.title = title
-        this.render = render
-    }
-}
+import Message from '../../models/Message';
 
 class Dashboard extends Component {
+    state = { message: null }
     componentWillMount() {
-        this.setState({ message: null, user: this.context.user })
+        this.setState({ user: this.context.user })
         this.fetchUserData()
     }
 
@@ -25,48 +21,37 @@ class Dashboard extends Component {
             setLocalUser(user)
             this.setState({ user })
         } catch ({ message }) {
-            this.setMessage(message, "danger")
+            this.setMessage(new Message(message, "danger"))
         }
     }
 
-    setMessage(msg, type) {
-        this.setState({
-            message: { msg, type }
-        })
+    setMessage(message) {
+        this.setState({ message })
     }
 
     render() {
         const { message, user } = this.state
-
-        const info = {
-            'nickname': new InfoRender("Nickname", () => user.nickname),
-            'email': new InfoRender("Email", () => user.email),
-            'createdAt': new InfoRender("Date de création", () => new Date(user.createdAt).toLocaleString('fr-FR')),
-            'updatedAt': new InfoRender("Dernière modification", () => new Date(user.updatedAt).toLocaleString('fr-FR')),
-        }
-
         return (
             <PageTitle title="Dashboard">
                 <div className="container">
-                    <div className="d-flex justify-content-between align-items-center">
+                    <AlignCJustifyB>
                         <HeaderTitle title="Dashboard" />
                         <Link to="/dashboard/edit">
-                            <Button>Edit profile</Button>
+                            <Button><i className="fas fa-user-edit mr-2"></i> Edit profile</Button>
                         </Link>
-                    </div>
+                    </AlignCJustifyB>
 
                     <Alert message={message} />
 
-                    <div className="row">
-                        {Object.entries(info).map(([key, value]) => (
-                            <div key={key} className="p-2 col col-md-6 col-lg-4">
-                                <Card>
-                                    {value.title}<br />
-                                    <strong>{value.render()}</strong>
-                                </Card>
-                            </div>
-                        ))}
-                    </div>
+                    <UserInfos user={user} />
+
+                    <AlignCJustifyB className="mt-3">
+                        <HeaderTitle title="My Projects" />
+                        <Link to="/dashboard/newproject">
+                            <Button><i className="fas fa-plus mr-2"></i> Add project</Button>
+                        </Link>
+                    </AlignCJustifyB>
+                    <UserProjects userId={user.uuid} />
                 </div>
             </PageTitle>
         )
