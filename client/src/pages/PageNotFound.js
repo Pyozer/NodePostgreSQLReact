@@ -1,9 +1,12 @@
 import React from 'react'
 import { PageTitle } from '../utils/Context'
+import { FullCenter, HeaderTitle } from '../components/UI';
 
 const PageNotFound = () => (
     <PageTitle title="Page Not Found">
-        <h1>Page Not Found</h1>
+        <FullCenter>
+            <HeaderTitle title="Page not found !" />
+        </FullCenter>
     </PageTitle>
 )
 
