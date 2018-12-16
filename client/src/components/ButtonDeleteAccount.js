@@ -2,8 +2,19 @@ import React, { Component } from 'react';
 import Button from './Button';
 import { Modal, ModalBody, ModalFooter } from './Modal';
 import { LoginContext } from '../utils/Context';
+import { fetchData } from '../utils/Api';
 
 class ButtonDeleteAccount extends Component {
+
+    deleteUserAccount = async () => {
+        try {
+            const { user, authToken, logoutUser } = this.context            
+            await fetchData(`/api/users/${user.uuid}/delete`, authToken, null, 'DELETE')
+            logoutUser()
+        } catch ({message}) {            
+            alert(message)
+        }
+    }
 
     render() {
         const { className } = this.props
@@ -29,7 +40,7 @@ class ButtonDeleteAccount extends Component {
                     </ModalBody>
                     <ModalFooter>
                         <Button variant="secondary" outline={true} data-dismiss="modal">Cancel</Button>
-                        <Button variant="danger">Delete</Button>
+                        <Button variant="danger" data-dismiss="modal" onClick={this.deleteUserAccount}>Delete</Button>
                     </ModalFooter>
                 </Modal>
             </>
