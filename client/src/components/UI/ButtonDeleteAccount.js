@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { LoginContext } from '../../utils/Context'
 import { fetchData } from '../../utils/Api'
 import { ButtonDeleteModal } from '.'
+import { toast } from 'react-toastify';
 
 class ButtonDeleteAccount extends Component {
 
@@ -9,9 +10,10 @@ class ButtonDeleteAccount extends Component {
         try {
             const { user, authToken, logoutUser } = this.context
             await fetchData(`/api/users/${user.uuid}`, authToken, null, 'DELETE')
+            toast.success("Your account have been successfully deleted.");
             logoutUser()
         } catch ({ message }) {
-            alert(message)
+            toast.error(message)
         }
     }
 

@@ -11,6 +11,11 @@ a {
   color: inherit;
 }
 
+.darkTheme {
+  background-color: #242424;
+  color: white;
+}
+
 .minh-100 {
   min-height: 100%;
 }
@@ -42,6 +47,7 @@ a {
 
 .btn.btn-transparent {
   background-color: transparent;
+  color: inherit;
 }
 .btn.btn-transparent:focus, .btn.btn-transparent:active {
   box-shadow: none;
@@ -60,11 +66,17 @@ a {
 /* Bootstrap override */
 .navbar {
   min-height: 72px;
+  background-color: white;
 }
+
 .form-control {
   color: #111;
   transition: all 350ms ease;
   padding: 21px 18px;
+}
+.darkTheme input {
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #FFF
 }
 .form-control::placeholder {
   color: #BBB;
@@ -74,10 +86,15 @@ a {
   border-width: 2px;
   padding: 20px 17px;
 }
+.darkTheme .form-control:focus {
+  color: #FFF;
+  background-color: rgba(0, 0, 0, 0.2);
+}
 .dropdown-menu {
   padding: 0;
   overflow: hidden;
   border: none;
+  background-color: #FAFAFA
 }
 .dropdown-item {
   padding: 0.8rem 2rem;
@@ -90,7 +107,47 @@ a {
   background-color: #007bff;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
+.darkTheme .dropdown-item {
+  color: #FFF;
+}
+
+.darkTheme .dropdown-divider,
+.darkTheme .modal-footer {
+  border-top: 1px solid #6b6c6d;
+}
+.darkTheme .modal-header {
+  border-bottom: 1px solid #6b6c6d;
+}
+.darkTheme .modal-header .close,
+.darkTheme .modal-header .close:hover,
+.darkTheme .modal-header .close:focus {
+  color: #FFF;
+}
 
 .rounded {
   border-radius: .5rem!important;
+}
+
+.darkTheme .card,
+.darkTheme .modal-content,
+.darkTheme .dropdown-menu,
+.darkTheme .navbar {
+  background-color: #343a40;
+}
+
+/* react-toastify override */
+.Toastify__toast--info {
+  background: #17a2b8;
+}
+.Toastify__toast--success {
+  background: #28a745;
+}
+.Toastify__toast--warning {
+  background: #ffc107;
+}
+.Toastify__toast--error {
+  background: #dc3545;
+}
+.Toastify__toast-body {
+  padding: 10px;
 }

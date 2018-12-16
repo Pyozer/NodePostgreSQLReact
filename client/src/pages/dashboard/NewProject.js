@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { toast } from 'react-toastify'
 import { withRouter } from 'react-router-dom'
 import { HeaderTitle } from '../../components/UI'
 import { FormCard, Input } from '../../components/Form'
@@ -15,6 +16,7 @@ class NewProject extends Component {
             JSON.stringify(data),
             'POST'
         )
+        toast.success(`Project "${data.name}" successfully created`);
         this.props.history.push('/dashboard')
     }
 

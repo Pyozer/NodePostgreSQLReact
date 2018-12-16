@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import { ToastContainer, toast } from 'react-toastify'
 import PageNotFound from './pages/PageNotFound'
-import { LoginContext } from './utils/Context'
+import { LoginContext, ThemeContext } from './utils/Context'
 import { Appbar } from './components/UI'
 import { Home } from './pages'
 import { SignRoute, DashboardRoute } from './routes/Routes'
 import { NotSecureRoute, SecureRoute } from './routes/CustomRoute'
-import { getLocalAuthToken, getLocalUser, setLocalAuthToken, setLocalUser } from './utils/Storage'
+import { getLocalAuthToken, getLocalUser, setLocalAuthToken, setLocalUser, isDarkTheme, setDarkTheme } from './utils/Storage'
 
 /*
 1. Gérer persitance des données (localStorage)
@@ -26,7 +27,9 @@ class App extends Component {
       isConnected: false,
       connectUser: this.connectUser,
       logoutUser: this.logoutUser,
-      updateUser: this.updateUser
+      updateUser: this.updateUser,
+      isDark: isDarkTheme(),
+      toggleTheme: this.toggleTheme
     }
   }
 
@@ -41,6 +44,7 @@ class App extends Component {
 
   logoutUser = () => {
     this.updateLoginState(false, null, null)
+    toast.success("You have been successfully disconnected.");
   }
 
   updateUser = (user) => {
@@ -54,21 +58,31 @@ class App extends Component {
     this.setState({ isConnected, user, authToken })
   }
 
+  toggleTheme = () => {
+    const isDark = !this.state.isDark
+    this.setState({ isDark })
+    setDarkTheme(isDark)
+  }
+
   render() {
+    const { isDark } = this.state
     return (
-      <LoginContext.Provider value={this.state}>
-        <Router>
-          <div className="d-flex flex-column minh-100">
-            <Appbar />
-            <Switch>
-              <Route exact path="/" component={Home} />
-              <NotSecureRoute path="/auth" component={SignRoute} />
-              <SecureRoute path="/dashboard" component={DashboardRoute} />
-              <Route component={PageNotFound} />
-            </Switch>
-          </div>
-        </Router>
-      </LoginContext.Provider>
+      <ThemeContext.Provider value={this.state}>
+        <LoginContext.Provider value={this.state}>
+          <Router>
+            <div className={`d-flex flex-column minh-100 pb-5 ${isDark ? 'darkTheme' : ''}`}>
+              <Appbar />
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <NotSecureRoute path="/auth" component={SignRoute} />
+                <SecureRoute path="/dashboard" component={DashboardRoute} />
+                <Route component={PageNotFound} />
+              </Switch>
+              <ToastContainer />
+            </div>
+          </Router>
+        </LoginContext.Provider>
+      </ThemeContext.Provider>
     )
   }
 }

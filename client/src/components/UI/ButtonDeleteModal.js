@@ -13,7 +13,7 @@ const ButtonDeleteModal = ({ onDelete, children, title = "Delete", className = "
                     title={title}
                     data-toggle="modal"
                     data-target={`#${modalId}`}>
-                    <i className="far fa-trash-alt"></i>
+                    <i className="fas fa-trash-alt"></i>
                 </button>
             </div>
 

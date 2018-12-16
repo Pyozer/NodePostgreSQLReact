@@ -3,6 +3,7 @@ import { withRouter } from 'react-router-dom'
 import { LoginContext } from '../../utils/Context'
 import { fetchData } from '../../utils/Api'
 import { ButtonDeleteModal } from '.'
+import { toast } from 'react-toastify';
 
 class ButtonDeleteProject extends Component {
 
@@ -11,9 +12,10 @@ class ButtonDeleteProject extends Component {
             const { user, authToken } = this.context
             const { projectId } = this.props
             await fetchData(`/api/users/${user.uuid}/projects/${projectId}`, authToken, null, 'DELETE')
+            toast.success("Project successfully deleted.");
             this.props.history.push('/dashboard')
         } catch ({ message }) {
-            alert(message)
+            toast.error(message)
         }
     }
 

@@ -78,7 +78,7 @@ class EditProject extends Component {
                         </div>
                     </div>
                 </div>
-                <ButtonDeleteProject className="position-fixed bottom right p-4" projectId={id} />
+                {!message && <ButtonDeleteProject className="position-fixed bottom right p-4" projectId={id} />}
             </PageTitle>
         )
     }

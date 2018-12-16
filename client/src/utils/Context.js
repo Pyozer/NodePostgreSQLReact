@@ -16,4 +16,9 @@ export const LoginContext = React.createContext({
     logoutUser: () => { },
 })
 
-export default { PageTitle, LoginContext }
+export const ThemeContext = React.createContext({
+    isDark: false,
+    toggleTheme: () => { },
+})
+
+export default { PageTitle, LoginContext, ThemeContext }

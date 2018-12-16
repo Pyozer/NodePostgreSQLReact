@@ -13,3 +13,6 @@ export const setLocalAuthToken = (authToken) => {
     else
         localStorage.setItem('authToken', authToken)
 }
+
+export const isDarkTheme = () => localStorage.getItem('isDark') === 'true'
+export const setDarkTheme = (isDark) => localStorage.setItem('isDark', isDark)
