@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Alert, Card } from '../../components/UI'
+import { Link } from 'react-router-dom'
+import { Alert, Card, Button } from '../../components/UI'
 import { LoginContext } from '../../utils/Context'
 import { fetchData } from '../../utils/Api'
 import Message from '../../models/Message';
@@ -34,14 +35,23 @@ class UserProjects extends Component {
 
         return (
             <div className="row">
-                {projects.map(project => (
-                    <div key={project.id} className="p-2 col col-md-6 col-lg-4">
+                {projects.map(({ id, name, createdAt, updatedAt }) => (
+                    <div key={id} className="p-2 col col-md-6 col-lg-4">
                         <Card>
-                            <h5>{project.name}</h5>
+                            <h5>{name}</h5>
                             <hr />
-                            Created: <strong>{new Date(project.createdAt).toLocaleString('fr')}</strong>
-                            <br />
-                            Last update: <strong>{new Date(project.updatedAt).toLocaleString('fr')}</strong>
+                            <p>
+                                Created : <strong>{new Date(createdAt).toLocaleString('fr')}</strong>
+                                <br />
+                                Last update : <strong>{new Date(updatedAt).toLocaleString('fr')}</strong>
+                            </p>
+                            <div className="d-flex justify-content-end">
+                                <Link to={`/dashboard/editproject/${id}`}>
+                                    <Button outline={true}>
+                                        <i className="fas fa-pencil-alt"></i>
+                                    </Button>
+                                </Link>
+                            </div>
                         </Card>
                     </div>
                 ))}
