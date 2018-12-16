@@ -1,5 +1,6 @@
 import { Router } from "express"
 import User from "../../models/user"
+import projects from './projects'
 
 const api = Router()
 
@@ -91,5 +92,7 @@ api.delete("/:uuid/delete", async (req, res) => {
     })
   }
 })
+
+api.use("/:uuid/projects", projects)
 
 export default api
