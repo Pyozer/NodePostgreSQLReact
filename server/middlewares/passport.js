@@ -14,7 +14,7 @@ passport.use(
       const user = await User.findOne({
         where: {
           nickname: {
-            [Op.iLike]: `%${nickname}%`
+            [Op.iLike]: `${nickname}`
           }
         }
       })
