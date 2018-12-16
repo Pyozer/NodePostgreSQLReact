@@ -7,7 +7,7 @@ export const Modal = ({ title, id, children }) => (
                 <div className="modal-header">
                     <h5 className="modal-title" id={`${id}Title`}>{title}</h5>
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times</span>
+                        <i className="fas fa-times" aria-hidden="true"></i>
                     </button>
                 </div>
                 {children}
