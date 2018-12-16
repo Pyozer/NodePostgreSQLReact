@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import Button from './Button';
-import { Modal, ModalBody, ModalFooter } from './Modal';
-import { LoginContext } from '../utils/Context';
-import { fetchData } from '../utils/Api';
+import React, { Component } from 'react'
+import { Modal, ModalBody, ModalFooter } from './Modal'
+import { LoginContext } from '../../utils/Context'
+import { fetchData } from '../../utils/Api'
+import { Button } from '.'
 
 class ButtonDeleteAccount extends Component {
 
     deleteUserAccount = async () => {
         try {
-            const { user, authToken, logoutUser } = this.context            
+            const { user, authToken, logoutUser } = this.context
             await fetchData(`/api/users/${user.uuid}/delete`, authToken, null, 'DELETE')
             logoutUser()
-        } catch ({message}) {            
+        } catch ({ message }) {
             alert(message)
         }
     }
@@ -20,7 +20,7 @@ class ButtonDeleteAccount extends Component {
         const { className } = this.props
         return (
             <>
-                <div className={className}>
+                <div className={className || ""}>
                     <button
                         className="btn btn-danger btn-fab scale-effect shadow"
                         title="Delete account"
@@ -44,9 +44,9 @@ class ButtonDeleteAccount extends Component {
                     </ModalFooter>
                 </Modal>
             </>
-        );
+        )
     }
 }
 ButtonDeleteAccount.contextType = LoginContext
 
-export default ButtonDeleteAccount;
+export default ButtonDeleteAccount

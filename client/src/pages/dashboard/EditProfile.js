@@ -1,56 +1,21 @@
 import React, { Component } from 'react'
-import { FormCard, Input, HeaderTitle } from '../../components'
+import { HeaderTitle, ButtonDeleteAccount } from '../../components/UI'
+import { FormCard, Input } from '../../components/Form'
 import { PageTitle, LoginContext } from '../../utils/Context'
-import ButtonDeleteAccount from '../../components/ButtonDeleteAccount';
+import { fetchData } from '../../utils/Api'
+import Message from '../../models/Message'
 
 class EditProfile extends Component {
-    state = { message: null }
+    onSubmit = async (data) => {
+        if (Object.keys(data).length === 0)
+            throw new Error("You must provide at least one modification to update your profile !")
 
-    onSubmit = async (e) => {
-        e.preventDefault()
-
-        const user = {}
-
-        for (let [name, value] of new FormData(e.target).entries())
-            if (value.trim().length > 0)
-                user[name] = value.trim()
-
-        if (Object.keys(user).length === 0) {
-            this.setMessage("You must provide at least one modification to update your profile !", "danger")
-            return
-        }
-
-        try {
-            const resultRaw = await fetch(`/api/users/${this.context.user.uuid}`, {
-                method: 'PUT',
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": `Bearer ${this.context.authToken}`
-                },
-                body: JSON.stringify(user)
-            })
-            const result = await resultRaw.json()
-
-            if (result.error) {
-                this.setMessage(result.error.message, "danger")
-            } else {
-                this.context.updateUser(result.data.user)
-                this.setMessage("Your profile has been successfully updated !", "success")
-            }
-        } catch ({ message }) {
-            this.setMessage(message, "danger")
-        }
-    }
-
-    setMessage(msg, type) {
-        this.setState({
-            message: { msg, type }
-        })
+        const result = await fetchData(`/api/users/${this.context.user.uuid}`, this.context.authToken, JSON.stringify(data), 'PUT')
+        this.context.updateUser(result.data.user)
+        return new Message("Your profile has been successfully updated !", "success")
     }
 
     render() {
-        const { message } = this.state
-
         return (
             <PageTitle title="Edit profile">
                 <div className="container">
@@ -59,7 +24,7 @@ class EditProfile extends Component {
                         <div className="col col-md-8 col-lg-6 ">
                             <LoginContext.Consumer>
                                 {({ user }) => (
-                                    <FormCard message={message} onSubmit={this.onSubmit} btnValue="Update">
+                                    <FormCard onSubmit={this.onSubmit} btnValue="Update">
                                         <p><small><strong>Ignore a field to not update it</strong></small></p>
                                         <hr />
                                         <Input type="text" label="Nickname" name="nickname" placeholder={user.nickname} />

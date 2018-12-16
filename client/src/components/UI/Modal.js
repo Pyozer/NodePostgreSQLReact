@@ -1,4 +1,4 @@
-import React from 'react';
+import React from 'react'
 
 export const Modal = ({ title, id, children }) => (
     <div className="modal fade" id={id} tabIndex="-1" role="dialog" aria-labelledby={`${id}Title`} aria-hidden="true">
@@ -7,7 +7,7 @@ export const Modal = ({ title, id, children }) => (
                 <div className="modal-header">
                     <h5 className="modal-title" id={`${id}Title`}>{title}</h5>
                     <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+                        <span aria-hidden="true">&times</span>
                     </button>
                 </div>
                 {children}
@@ -28,4 +28,4 @@ export const ModalFooter = ({ children }) => (
     </div>
 )
 
-export default { Modal, ModalBody, ModalFooter };
+export default { Modal, ModalBody, ModalFooter }

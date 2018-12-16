@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import PageNotFound from './pages/PageNotFound'
 import { LoginContext } from './utils/Context'
-import Appbar from './components/Appbar'
+import { Appbar } from './components/UI'
 import { Home } from './pages'
 import { SignRoute, DashboardRoute } from './routes/Routes'
-import { NotSecureRoute, SecureRoute } from './routes/CustomRoute';
-import { getLocalAuthToken, getLocalUser, setLocalAuthToken, setLocalUser } from './utils/Storage';
+import { NotSecureRoute, SecureRoute } from './routes/CustomRoute'
+import { getLocalAuthToken, getLocalUser, setLocalAuthToken, setLocalUser } from './utils/Storage'
 
 /*
 1. Gérer persitance des données (localStorage)

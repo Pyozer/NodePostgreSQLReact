@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { LoginContext, PageTitle } from '../../utils/Context'
-import { Card, HeaderTitle } from '../../components'
-import Button from '../../components/Button';
-import Alert from '../../components/Alert';
-import { setLocalUser } from '../../utils/Storage';
-import { fetchData } from '../../utils/Api';
+import { Card, HeaderTitle, Button, Alert } from '../../components/UI'
+import { setLocalUser } from '../../utils/Storage'
+import { fetchData } from '../../utils/Api'
 
 class InfoRender {
     constructor(title, render) {

@@ -1,8 +1,8 @@
 import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import { LoginContext } from '../utils/Context'
-import Button from './Button';
 import Avatar from 'react-avatar'
+import { LoginContext } from '../../utils/Context'
+import { Button } from '.'
 
 const Appbar = ({ history }) => {
     return (

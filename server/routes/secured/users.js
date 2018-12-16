@@ -54,7 +54,7 @@ api.put("/:uuid", async (req, res) => {
     if (password && !password_confirmation || !password && password_confirmation)
       throw new Error("You must provide password and password confirmation if you want to change password !")
 
-    const user = await userFound.update(
+    const user = await req.user.update(
       JSON.parse(JSON.stringify({ nickname, email, password, password_confirmation })),
       {
         returning: true,
@@ -78,7 +78,7 @@ api.delete("/:uuid/delete", async (req, res) => {
     if (req.user.uuid !== uuid)
       throw new Error("You can only delete your account, not others !")
 
-    const userFound = await User.destroy({
+    await User.destroy({
       where: { uuid }
     })
 

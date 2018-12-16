@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 import { Route, Redirect } from 'react-router-dom'
-import { LoginContext } from '../utils/Context';
+import { LoginContext } from '../utils/Context'
 
 const AuthRoute = ({ component: Component, redirectTo, isSecure, ...rest }) => (
     <Route {...rest} render={props => (
@@ -21,4 +21,4 @@ export const NotSecureRoute = props => <AuthRoute {...props} redirectTo="/dashbo
 
 export const SecureRoute = props => <AuthRoute {...props} redirectTo="/auth/signin" isSecure={true} />
 
-export default { NotSecureRoute, SecureRoute };
+export default { NotSecureRoute, SecureRoute }
