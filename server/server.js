@@ -16,7 +16,7 @@ const start = async () => {
     await database.authenticate()
 
     if (process.env.NODE_ENV)
-      await database.sync({ force: false })
+      await database.sync({ alter: true })
 
     app.use(cors())
     app.use(passport.initialize())

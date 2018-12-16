@@ -19,9 +19,8 @@ export default class User extends Model {
           },
           validate: {
             isLongEnough(v) {
-              if (v.length < 5) {
+              if (v.length < 5)
                 throw new Error("Nickname must have at least 5 characters")
-              }
             }
           }
         },
@@ -50,9 +49,8 @@ export default class User extends Model {
           type: Sequelize.VIRTUAL,
           validate: {
             isLongEnough(v) {
-              if (v.length < 7) {
+              if (v.length < 7)
                 throw new Error("Password must have at least 7 characters")
-              }
             }
           }
         },
@@ -60,9 +58,8 @@ export default class User extends Model {
           type: Sequelize.VIRTUAL,
           validate: {
             isEqual(v) {
-              if (v !== this.password) {
+              if (v !== this.password)
                 throw new Error("Password confirmation doesn't match password")
-              }
             }
           }
         }
@@ -71,31 +68,24 @@ export default class User extends Model {
         tableName: "users",
         sequelize: database,
         indexes: [
-          {
-            unique: true,
-            fields: ["uuid", "nickname", "email"]
-          }
+          { unique: true, fields: ["uuid", "nickname", "email"] }
         ],
-
         hooks: {
           async beforeValidate(userInstance) {
             if (userInstance.password)
               userInstance.password_digest = await userInstance.generateHash()
           },
           async beforeSave(userInstance) {
-            if (!userInstance.isNewRecord && userInstance.changed("password")) {
+            if (!userInstance.isNewRecord && userInstance.changed("password"))
               userInstance.password_digest = await userInstance.generateHash()
-            }
           },
-          async beforeBulkUpdate(userInstance) {            
-            if (userInstance.changed("password")) {
+          async beforeBulkUpdate(userInstance) {
+            if (userInstance.changed("password"))
               userInstance.password_digest = await userInstance.generateHash()
-            }
           },
-          async beforeUpdate(userInstance) {            
-            if (userInstance.changed("password")) {
+          async beforeUpdate(userInstance) {
+            if (userInstance.changed("password"))
               userInstance.password_digest = await userInstance.generateHash()
-            }
           }
         }
       }

@@ -20,12 +20,8 @@ export default class Project extends Model {
       {
         tableName: "projects",
         sequelize: database,
-
         indexes: [
-          {
-            unique: true,
-            fields: ["id"]
-          }
+          { unique: true, fields: ["id", "name"] }
         ]
       }
     )
