@@ -10,7 +10,7 @@ User.init(db)
 Project.init(db)
 
 User.associate = () => User.hasMany(Project, {
-    foreignKey: { name: 'userId', allowNull: false },
+    foreignKey: 'userId',
     onDelete: 'CASCADE',
     onUpdate: 'CASCADE'
 })
