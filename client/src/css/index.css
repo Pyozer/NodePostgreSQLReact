@@ -27,11 +27,17 @@ a {
   border-radius: 50px;
 }
 
-.scale-effect {
-  transition: transform 500ms ease; 
-}
 .scale-effect:hover {
-  transform: scale(1.08)
+  animation: scale 500ms ease infinite alternate;
+}
+
+@keyframes scale {
+  from {
+    transform:scale(1.0);
+  }
+  to {
+    transform:scale(1.05);
+  }
 }
 
 .btn.btn-transparent {
