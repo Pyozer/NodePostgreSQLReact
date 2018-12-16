@@ -1,9 +1,8 @@
 import React from 'react'
 import { Route, Switch } from 'react-router-dom'
-import { SignIn, SignUp } from '../pages/auth'
-import { Dashboard, EditProfile } from '../pages/dashboard'
+import { SignIn, SignUp } from '../pages/Auth';
+import { Dashboard, EditProfile, NewProject, EditProject } from '../pages/Dashboard';
 import { PageNotFound } from '../pages';
-import NewProject from '../pages/dashboard/NewProject';
 
 export const SignRoute = ({ match }) => (
     <Switch>
@@ -17,6 +16,9 @@ export const DashboardRoute = ({ match }) => (
         <Route exact path={`${match.url}`} component={Dashboard} />
         <Route exact path={`${match.url}/edit`} component={EditProfile} />
         <Route exact path={`${match.url}/newproject`} component={NewProject} />
+        <Route exact path={`${match.url}/editproject/:projectId`} component={EditProject} />
         <Route component={PageNotFound} />
     </Switch>
 )
+
+export default { SignRoute, DashboardRoute } 

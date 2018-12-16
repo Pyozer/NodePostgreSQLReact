@@ -48,6 +48,27 @@ api.post("/", async (req, res) => {
   }
 })
 
+api.get("/:projectId", async (req, res) => {
+  try {
+    const { user, params } = req
+
+    const projects = await user.getProjects({
+      where: { id: params.projectId }
+    })
+
+    if (projects.length < 1)
+      throw new Error("The project you want to get not exists !")
+
+    res.status(200).json({
+      data: { project: projects[0] }
+    })
+  } catch (e) {
+    res.status(400).json({
+      error: { message: e.message }
+    })
+  }
+})
+
 api.put("/:projectId", async (req, res) => {
   try {
     const { user, params, body } = req
