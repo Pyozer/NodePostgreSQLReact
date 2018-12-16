@@ -27,8 +27,8 @@ class EditProfile extends Component {
                                     <FormCard onSubmit={this.onSubmit} btnValue="Update">
                                         <p><small><strong>Ignore a field to not update it</strong></small></p>
                                         <hr />
-                                        <Input type="text" label="Nickname" name="nickname" placeholder={user.nickname} />
-                                        <Input type="email" label="Email" name="email" placeholder={user.email} />
+                                        <Input type="text" label="Nickname" name="nickname" defaultValue={user.nickname} />
+                                        <Input type="email" label="Email" name="email" defaultValue={user.email} />
                                         <Input type="password" label="Password" name="password" placeholder="Leave blank to ignore" />
                                         <Input type="password" label="Password confirmation" name="password_confirmation" placeholder="Leave blank to ignore" />
                                     </FormCard>
