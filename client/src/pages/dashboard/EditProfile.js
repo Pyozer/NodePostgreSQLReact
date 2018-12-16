@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { FormCard, Input, HeaderTitle } from '../../components'
 import { PageTitle, LoginContext } from '../../utils/Context'
+import ButtonDeleteAccount from '../../components/ButtonDeleteAccount';
 
 class EditProfile extends Component {
     state = { message: null }
@@ -71,7 +72,8 @@ class EditProfile extends Component {
                         </div>
                     </div>
                 </div>
-            </PageTitle >
+                <ButtonDeleteAccount className="position-fixed bottom right p-4" />
+            </PageTitle>
         )
     }
 }

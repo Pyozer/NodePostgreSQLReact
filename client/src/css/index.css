@@ -15,6 +15,14 @@ a {
   min-height: 100%;
 }
 
+.bottom {
+  bottom: 0;
+}
+
+.right {
+  right: 0;
+}
+
 .full-rounded {
   border-radius: 50px;
 }
@@ -26,7 +34,27 @@ a {
   transform: scale(1.08)
 }
 
+.btn.btn-transparent {
+  background-color: transparent;
+}
+.btn.btn-transparent:focus, .btn.btn-transparent:active {
+  box-shadow: none;
+  color: #AAA;
+}
+.btn.btn-fab {
+  width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	border-radius:50px;
+  text-align:center;
+  font-size: 22px;
+}
+
 /* Bootstrap override */
+.navbar {
+  min-height: 72px;
+}
 .form-control {
   color: #111;
   transition: all 350ms ease;
@@ -39,6 +67,22 @@ a {
   box-shadow: none;
   border-width: 2px;
   padding: 20px 17px;
+}
+.dropdown-menu {
+  padding: 0;
+  overflow: hidden;
+  border: none;
+}
+.dropdown-item {
+  padding: 0.8rem 2rem;
+}
+.dropdown-item.active,
+.dropdown-item:active,
+.dropdown-item:hover,
+.dropdown-item:focus {
+  color: #FFF;
+  background-color: #007bff;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
 }
 
 .rounded {
