@@ -17,7 +17,7 @@ api.post("/register", async (req, res) => {
     await user.save()
 
     const payload = { uuid: user.uuid, nickname, email }
-    const token = jwt.sign(payload, "VerySecureKeyToKeepSecret")
+    const token = jwt.sign(payload, process.env.JWT_ENCRYPTION)
 
     res.status(201).json({
       data: { user },
