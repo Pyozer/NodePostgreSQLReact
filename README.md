@@ -7,19 +7,20 @@ I used create-react-app to build React App and Express to make the node server.
 
 There is differents routes on the server:
 
-| Method | Route                            | Description                                      |
-| ------ | -------------------------------- | ------------------------------------------------ |
-| POST   | /auth/signIn                     | Login user and get auth token                    |
-| POST   | /auth/signUp                     | Register a new user and get auth token           |
-| GET    | /users                           | Get data of all users                            |
-| GET    | /users/me                        | Get data of connected user (Authorization token) |
-| GET    | /users/:uuid                     | Get data of a specific user                      |
-| PUT    | /users/:uuid                     | Update user data                                 |
-| DELETE | /users/:uuid                     | Delete user account                              |
-| GET    | /users/:uuid/projects            | Get data of all user's projects                  |
-| GET    | /users/:uuid/projects/:projectId | Get data of a specific user's project            |
-| PUT    | /users/:uuid/projects/:projectId | Update a project                                 |
-| DELETE | /users/:uuid/projects/:projectId | Delete a project                                 |
+| Method | Route                 | Description                              |
+| ------ | --------------------- | ---------------------------------------- |
+| POST   | /auth/signIn          | Login user and get auth token            |
+| POST   | /auth/signUp          | Register a new user and get auth token   |
+| GET    | /users                | Get all users                            |
+| GET    | /users/me             | Get connected user (Authorization token) |
+| GET    | /users/:uuid          | Get specific user by ID                  |
+| PUT    | /users/:uuid          | Update specific user                     |
+| DELETE | /users/:uuid          | Delete user account                      |
+| GET    | /users/:uuid/projects | Get all projects of a specific user      |
+| GET    | /projects/            | Get all projects                         |
+| GET    | /projects/:projectId  | Get a specific project                   |
+| PUT    | /projects/:projectId  | Update a project                         |
+| DELETE | /projects/:projectId  | Delete a project                         |
 
 ## Structure of JSON response
 
