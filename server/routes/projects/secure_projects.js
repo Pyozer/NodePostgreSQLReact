@@ -1,17 +1,12 @@
 import { Router } from "express"
 import passport from "passport"
+import Project from "../../models/project";
 
 const api = Router({ mergeParams: true })
 
 api.post("/", passport.authenticate("jwt", { session: false }), async (req, res) => {
     try {
-        const { user, params, body } = req
-        const { uuid } = params
-        if (!uuid)
-            throw new Error("You must provide the user id !")
-
-        if (user.uuid !== uuid)
-            throw new Error("You can only add new project to your account, not others!")
+        const { user, body } = req
 
         const { name } = body
         const project = await user.createProject({ name })
@@ -27,25 +22,24 @@ api.post("/", passport.authenticate("jwt", { session: false }), async (req, res)
 api.put("/:projectId", passport.authenticate("jwt", { session: false }), async (req, res) => {
     try {
         const { user, params, body } = req
-        const { uuid, projectId } = params
-        if (user.uuid !== uuid)
-            throw new Error("You can only edit projects of your account, not others!")
+        const { projectId } = params
 
-        const projects = await user.getProjects({
-            where: { id: projectId }
-        })
+        const project = await Project.findByPk(projectId)
 
-        if (projects.length < 1)
+        if (!project)
             throw new Error("The project you want to edit not exists !")
 
+        if (user.uuid !== project.userId)
+            throw new Error("You can only edit projects of your account, not others!")
+
         const { name } = body
-        const project = await projects[0].update(
+        const projectUpdated = await project.update(
             JSON.parse(JSON.stringify({ name })), // Remove null fields
             { returning: true }
         )
 
         res.status(200).json({
-            data: { project }
+            data: { project: projectUpdated }
         })
     } catch (e) {
         res.status(400).json({
@@ -57,18 +51,17 @@ api.put("/:projectId", passport.authenticate("jwt", { session: false }), async (
 api.delete("/:projectId", passport.authenticate("jwt", { session: false }), async (req, res) => {
     try {
         const { user, params } = req
-        const { uuid, projectId } = params
-        if (user.uuid !== uuid)
-            throw new Error("You can only delete projects of your account, not others !")
+        const { projectId } = params
 
-        const projects = await user.getProjects({
-            where: { id: projectId }
-        })
+        const project = await Project.findByPk(projectId)
 
-        if (projects.length < 1)
+        if (!project)
             throw new Error("The project you want to delete not exists !")
 
-        await projects[0].destroy()
+        if (user.uuid !== project.userId)
+            throw new Error("You can only delete projects of your account, not others!")
+
+        await project.destroy()
 
         res.status(200).json({
             message: `The project #${projectId} has been successfully deleted.`

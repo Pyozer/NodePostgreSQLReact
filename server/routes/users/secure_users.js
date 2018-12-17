@@ -3,9 +3,7 @@ import passport from "passport"
 
 const api = Router({ mergeParams: true })
 
-api.get("/me", passport.authenticate("jwt", { session: false }), async (req, res) => {
-    console.log("TEST");
-    
+api.get("/me", passport.authenticate("jwt", { session: false }), async (req, res) => {    
     const { user } = req
     res.status(200).json({
         data: { user }

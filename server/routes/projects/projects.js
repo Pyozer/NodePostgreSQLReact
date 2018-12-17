@@ -5,12 +5,7 @@ const api = Router({ mergeParams: true })
 
 api.get("/", async (req, res) => {
   try {
-    const { uuid } = req.params
-
-    if (!uuid)
-      throw new Error("You must provide the user id !")
-
-    let projects = await Project.findAll({ where: { userId: uuid } })
+    let projects = await Project.findAll()
 
     res.status(200).json({
       data: { projects }
@@ -24,14 +19,9 @@ api.get("/", async (req, res) => {
 
 api.get("/:projectId", async (req, res) => {
   try {
-    const { projectId, uuid } = req.params
+    const { projectId } = req.params
 
-    const project = await Project.findOne({
-      where: {
-        userId: uuid,
-        id: projectId
-      }
-    })
+    const project = await Project.findByPk(projectId)
 
     if (!project)
       throw new Error("The project you want to get not exists !")
