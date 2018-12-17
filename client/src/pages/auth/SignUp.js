@@ -7,7 +7,7 @@ import { SignUpForm } from '../../components/Form'
 const SignUp = () => (
     <PageTitle title="Sign Up">
         <HorizontalCenter className="container">
-            <HeaderTitle title="Sign Up" />
+            <HeaderTitle>Sign Up</HeaderTitle>
             <div className="col col-md-8 col-lg-6">
                 <SignUpForm />
                 <p className="mt-4">

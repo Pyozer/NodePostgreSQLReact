@@ -19,7 +19,7 @@ class EditProfile extends Component {
         return (
             <PageTitle title="Edit profile">
                 <div className="container">
-                    <HeaderTitle title="Edit profile" backTo="/dashboard" />
+                    <HeaderTitle backTo="/dashboard">Edit profile</HeaderTitle>
                     <div className="d-flex justify-content-center">
                         <div className="col col-md-8 col-lg-6 ">
                             <LoginContext.Consumer>

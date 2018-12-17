@@ -63,7 +63,7 @@ class EditProject extends Component {
         return (
             <PageTitle title="Edit project">
                 <div className="container">
-                    <HeaderTitle title="Edit project" backTo="/dashboard" />
+                    <HeaderTitle backTo="/dashboard">Edit project</HeaderTitle>
                     <div className="d-flex justify-content-center">
                         <div className="col col-md-8 col-lg-6 ">
                             {message

@@ -35,7 +35,7 @@ class Dashboard extends Component {
             <PageTitle title="Dashboard">
                 <div className="container">
                     <AlignCJustifyB>
-                        <HeaderTitle title="Dashboard" />
+                        <HeaderTitle>Dashboard</HeaderTitle>
                         <Link to="/dashboard/edit">
                             <Button><i className="fas fa-user-edit mr-2"></i> Edit profile</Button>
                         </Link>
@@ -46,7 +46,7 @@ class Dashboard extends Component {
                     <UserInfos user={user} />
 
                     <AlignCJustifyB className="mt-3">
-                        <HeaderTitle title="My Projects" />
+                        <HeaderTitle>My Projects</HeaderTitle>
                         <Link to="/dashboard/newproject">
                             <Button><i className="fas fa-plus mr-2"></i> Add project</Button>
                         </Link>

@@ -24,7 +24,7 @@ class NewProject extends Component {
         return (
             <PageTitle title="Add new project">
                 <div className="container">
-                    <HeaderTitle title="Add new project" backTo="/dashboard" />
+                    <HeaderTitle backTo="/dashboard">Add new project</HeaderTitle>
                     <div className="d-flex justify-content-center">
                         <div className="col col-md-8 col-lg-6 ">
                             <FormCard onSubmit={this.onSubmit} btnValue="Create">

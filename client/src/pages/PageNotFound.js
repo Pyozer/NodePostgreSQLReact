@@ -5,7 +5,7 @@ import { FullCenter, HeaderTitle } from '../components/UI';
 const PageNotFound = () => (
     <PageTitle title="Page Not Found">
         <FullCenter>
-            <HeaderTitle title="Page not found !" />
+            <HeaderTitle>Page Not Found !</HeaderTitle>
         </FullCenter>
     </PageTitle>
 )
