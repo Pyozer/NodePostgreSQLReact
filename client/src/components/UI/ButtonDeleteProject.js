@@ -6,12 +6,10 @@ import { ButtonDeleteModal } from '.'
 import { toast } from 'react-toastify';
 
 class ButtonDeleteProject extends Component {
-
     deleteProject = async () => {
         try {
-            const { user, authToken } = this.context
-            const { projectId } = this.props
-            await fetchData(`/api/users/${user.uuid}/projects/${projectId}`, authToken, null, 'DELETE')
+            const { context, props } = this
+            await fetchData(`/api/projects/${props.projectId}`, context.authToken, null, 'DELETE')
             toast.success("Project successfully deleted.");
             this.props.history.push('/dashboard')
         } catch ({ message }) {

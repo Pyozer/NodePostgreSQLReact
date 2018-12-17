@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { Alert, Card, Button } from '../../components/UI'
-import { LoginContext } from '../../utils/Context'
 import { fetchData } from '../../utils/Api'
 import Message from '../../models/Message';
 
 class UserProjects extends Component {
     state = { message: null, projects: [] }
+
     componentWillMount() {
         this.fetchUserProjects()
     }
@@ -14,7 +14,7 @@ class UserProjects extends Component {
     async fetchUserProjects() {
         try {
             const { userId } = this.props
-            const result = await fetchData(`/api/users/${userId}/projects`, this.context.authToken)
+            const result = await fetchData(`/api/users/${userId}/projects`)
             const { projects } = result.data
             this.setState({ projects })
             if (projects.length === 0)
@@ -33,6 +33,8 @@ class UserProjects extends Component {
 
         if (message) return <Alert message={message} />
 
+        const isEdit = this.props.isEdit || false
+
         return (
             <div className="row">
                 {projects.map(({ id, name, createdAt, updatedAt }) => (
@@ -45,13 +47,15 @@ class UserProjects extends Component {
                                 <br />
                                 Last update : <strong>{new Date(updatedAt).toLocaleString('fr')}</strong>
                             </p>
-                            <div className="d-flex justify-content-end">
-                                <Link to={`/dashboard/editproject/${id}`}>
-                                    <Button outline={true}>
-                                        <i className="fas fa-pencil-alt"></i>
-                                    </Button>
-                                </Link>
-                            </div>
+                            {isEdit && (
+                                <div className="d-flex justify-content-end">
+                                    <Link to={`/dashboard/editproject/${id}`}>
+                                        <Button outline={true}>
+                                            <i className="fas fa-pencil-alt"></i>
+                                        </Button>
+                                    </Link>
+                                </div>
+                            )}
                         </Card>
                     </div>
                 ))}
@@ -59,6 +63,5 @@ class UserProjects extends Component {
         )
     }
 }
-UserProjects.contextType = LoginContext
 
 export default UserProjects

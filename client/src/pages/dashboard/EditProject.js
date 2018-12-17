@@ -5,6 +5,7 @@ import { FormCard, Input } from '../../components/Form'
 import { PageTitle, LoginContext } from '../../utils/Context'
 import { fetchData } from '../../utils/Api'
 import Message from '../../models/Message'
+import { toast } from 'react-toastify';
 
 class EditProject extends Component {
     constructor(props) {
@@ -25,9 +26,14 @@ class EditProject extends Component {
             const { user, authToken } = this.context
             const { id } = this.state.project
 
-            const result = await fetchData(`/api/users/${user.uuid}/projects/${id}`, authToken)
+            const result = await fetchData(`/api/projects/${id}`, authToken)
             const { project } = result.data
-            this.setState({ project })
+            if (project.userId !== user.uuid) {
+                toast.error('This project is no yours, you cannot edit it !')
+                this.props.history.push('/')
+            } else {
+                this.setState({ project })
+            }
         } catch ({ message }) {
             this.setMessage(new Message(message, "danger"))
         }
@@ -41,17 +47,13 @@ class EditProject extends Component {
         if (Object.keys(data).length === 0)
             throw new Error("You must provide at least one modification to update your project !")
 
-        const { user, authToken } = this.context
-        const { id } = this.state.project
-
         const result = await fetchData(
-            `/api/users/${user.uuid}/projects/${id}`,
-            authToken,
+            `/api/projects/${this.state.project.id}`,
+            this.context.authToken,
             JSON.stringify(data),
             'PUT'
         )
-        const { project } = result.data
-        this.setState({ project })
+        this.setState({ project: result.data.project })
 
         return new Message("Your project has been successfully updated !", "success")
     }

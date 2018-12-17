@@ -11,7 +11,7 @@ class NewProject extends Component {
         const { user, authToken } = this.context
 
         await fetchData(
-            `/api/users/${user.uuid}/projects`,
+            `/api/projects`,
             authToken,
             JSON.stringify(data),
             'POST'

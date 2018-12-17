@@ -1,25 +1,28 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import { Alert, Card, Button } from '../UI'
-import { LoginContext } from '../../utils/Context'
+import { Alert, Card } from '../UI'
 import { fetchData } from '../../utils/Api'
 import Message from '../../models/Message';
 import ReactAvatar from 'react-avatar';
 
 class UsersList extends Component {
     state = { message: null, users: [] }
+    
     componentWillMount() {
         this.fetchUsersList()
     }
 
     async fetchUsersList() {
         try {
-            const result = await fetchData(`/api/users/`, this.context.authToken)
+            const result = await fetchData(`/api/users/`)
             const { users } = result.data
             if (users.length === 0)
                 this.setMessage(new Message("There is no users", "info"))
-            else
+            else {
                 this.setState({ users })
+                if (this.props.onUsers)
+                    this.props.onUsers(users)
+            }
         } catch ({ message }) {
             this.setMessage(new Message(message, "danger"))
         }
@@ -52,6 +55,5 @@ class UsersList extends Component {
         )
     }
 }
-UsersList.contextType = LoginContext
 
 export default UsersList
