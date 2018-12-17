@@ -7,7 +7,7 @@ import ReactAvatar from 'react-avatar';
 
 class UsersList extends Component {
     state = { message: null, users: [] }
-    
+
     componentWillMount() {
         this.fetchUsersList()
     }
@@ -16,9 +16,9 @@ class UsersList extends Component {
         try {
             const result = await fetchData(`/api/users/`)
             const { users } = result.data
-            if (users.length === 0)
+            if (users.length === 0) {
                 this.setMessage(new Message("There is no users", "info"))
-            else {
+            } else {
                 this.setState({ users })
                 if (this.props.onUsers)
                     this.props.onUsers(users)

@@ -1,7 +1,7 @@
 import React from 'react'
 
-const HorizontalCenter = ({ children, className = "" }) => (
-    <div className={`d-flex flex-column align-items-center ${className}`}>
+const HorizontalCenter = ({ children, className = "", isColumn = true }) => (
+    <div className={`d-flex ${isColumn ? 'flex-column align-items-center' : 'justify-content-center'} ${className}`}>
         {children}
     </div>
 )

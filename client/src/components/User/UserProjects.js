@@ -16,9 +16,14 @@ class UserProjects extends Component {
             const { userId } = this.props
             const result = await fetchData(`/api/users/${userId}/projects`)
             const { projects } = result.data
-            this.setState({ projects })
-            if (projects.length === 0)
+            if (projects.length === 0) {
                 this.setMessage(new Message("This user has no project.", "info"))
+            } else {
+                this.setState({ projects })
+                if (this.props.onProjects)
+                    this.props.onProjects(projects)
+            }
+
         } catch ({ message }) {
             this.setMessage(new Message(message, "danger"))
         }
