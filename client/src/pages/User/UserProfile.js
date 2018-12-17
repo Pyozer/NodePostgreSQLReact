@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
+import ReactAvatar from 'react-avatar';
 import { PageTitle } from '../../utils/Context';
-import { HeaderTitle, Alert } from '../../components/UI';
+import Message from '../../models/Message';
+import { HeaderTitle, Alert, AlignCJustifyC, Badge } from '../../components/UI';
 import { UserProjects, UserInfos } from '../../components/User';
 import { fetchData } from '../../utils/Api';
-import Message from '../../models/Message';
 
 class UserProfile extends Component {
-    state = { message: null, user: {} }
+    state = { message: null, user: {}, projects: [] }
 
     componentWillMount() {
         this.fetchUserData()
@@ -28,20 +29,28 @@ class UserProfile extends Component {
         this.setState({ message })
     }
 
+    onProjects = (projects) => this.setState({ projects })
+
     render() {
         const { userId } = this.props.match.params
-        const { user, message } = this.state
+        const { user, message, projects } = this.state
 
         const nickname = user.nickname || "User"
         return (
             <PageTitle title={`${nickname} profile`}>
                 <div className="container">
-                    <HeaderTitle centerTitle={false}>{nickname}</HeaderTitle>
+                    <AlignCJustifyC className="my-5">
+                        <ReactAvatar name={nickname} size={90} round={true} className="mr-4" />
+                        <HeaderTitle centerTitle={false}>{nickname}</HeaderTitle>
+                    </AlignCJustifyC>
+
                     {message && <Alert message={message} />}
+
+                    <HeaderTitle centerTitle={false}>{nickname}'s informations</HeaderTitle>
                     <UserInfos user={user} />
 
-                    <HeaderTitle centerTitle={false}>{nickname}'s projects</HeaderTitle>
-                    <UserProjects userId={userId} isEdit={false} />
+                    <HeaderTitle centerTitle={false}>{nickname}'s projects <small><Badge className="ml-3">{projects.length}</Badge></small></HeaderTitle>
+                    <UserProjects userId={userId} onProjects={this.onProjects} isEdit={false} />
                 </div>
             </PageTitle>
         );
