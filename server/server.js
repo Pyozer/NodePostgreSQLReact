@@ -3,6 +3,7 @@ import bodyParser from "body-parser"
 import api from "./routes"
 import { db as database } from "./models"
 import passport from "passport"
+import morgan from 'morgan'
 import cors from 'cors'
 
 import "./middlewares/passport"
@@ -18,6 +19,7 @@ const start = async () => {
     if (process.env.NODE_ENV)
       await database.sync({ alter: true })
 
+    app.use(morgan('tiny'))
     app.use(cors())
     app.use(passport.initialize())
 

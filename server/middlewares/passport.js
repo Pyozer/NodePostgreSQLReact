@@ -36,7 +36,7 @@ passport.use(
     },
     async (jwtPayload, next) => {
       try {
-        const user = await User.findOne({ where: { uuid: jwtPayload.uuid } })
+        const user = await User.findByPk(jwtPayload.uuid)
         
         if (!user)
           return next("User doesn't exist")

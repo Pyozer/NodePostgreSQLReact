@@ -1,9 +1,8 @@
 import { Router } from "express"
-import passport from "passport"
-import auth from "./auth"
-import secured from "./secured"
+import UsersRouter from "./users"
+import { AuthRouter } from "./auth";
 
-const api = Router()
+const api = Router({ mergeParams: true })
 
 api.get("/", (req, res) => {
   res.json({
@@ -15,7 +14,7 @@ api.get("/", (req, res) => {
   })
 })
 
-api.use("/auth", auth)
-api.use("/", passport.authenticate("jwt", { session: false }), secured)
+api.use("/auth", AuthRouter)
+api.use("/users", UsersRouter)
 
 export default api

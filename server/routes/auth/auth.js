@@ -1,9 +1,9 @@
 import { Router } from "express"
 import jwt from "jsonwebtoken"
-import User from "../models/user"
+import User from "../../models/user"
 import passport from "passport"
 
-const api = Router()
+const api = Router({ mergeParams: true })
 
 api.post("/register", async (req, res) => {
   try {

@@ -4,7 +4,9 @@ import Project from "./project"
 
 // postgres://USER:PASS@HOST:PORT/DBNAME
 // createdb sanji.dev
-export const db = new Sequelize(process.env.DATABASE_URL)
+export const db = new Sequelize(process.env.DATABASE_URL, {
+    logging: false
+})
 
 User.init(db)
 Project.init(db)
