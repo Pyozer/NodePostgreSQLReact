@@ -143,6 +143,10 @@ a {
   background-color: #343a40;
 }
 
+.darkTheme .alert {
+  border-color: transparent!important;
+}
+
 /* react-toastify override */
 .Toastify__toast--info {
   background: #17a2b8;

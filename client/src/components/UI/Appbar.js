@@ -14,7 +14,7 @@ const Appbar = ({ history }) => {
                 return (
                     <LoginContext.Consumer>
                         {({ isConnected, user, logoutUser }) => (
-                            <nav className={`navbar navbar-expand-lg shadow ${navType}`}>
+                            <nav className={`navbar navbar-expand-lg shadow-sm ${navType}`}>
                                 <div className="container">
                                     <Link className="navbar-brand mr-5" to="/">MyProject</Link>
                                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
