@@ -5,7 +5,7 @@ import PageNotFound from './pages/PageNotFound'
 import { LoginContext, ThemeContext } from './utils/Context'
 import { Appbar } from './components/UI'
 import { Home } from './pages'
-import { SignRoute, DashboardRoute } from './routes/Routes'
+import { SignRoute, DashboardRoute, UsersRoute } from './routes/Routes'
 import { NotSecureRoute, SecureRoute } from './routes/CustomRoute'
 import { getLocalAuthToken, getLocalUser, setLocalAuthToken, setLocalUser, isDarkTheme, setDarkTheme } from './utils/Storage'
 
@@ -76,6 +76,7 @@ class App extends Component {
                 <Route exact path="/" component={Home} />
                 <NotSecureRoute path="/auth" component={SignRoute} />
                 <SecureRoute path="/dashboard" component={DashboardRoute} />
+                <Route path="/users" component={UsersRoute} />
                 <Route component={PageNotFound} />
               </Switch>
               <ToastContainer />
