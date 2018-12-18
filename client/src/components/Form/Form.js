@@ -38,11 +38,13 @@ class Form extends Component {
 
                 {children}
 
-                <div className="row justify-content-center mt-4">
-                    <div className="col col-md-8 col-lg-6 col-xl-4">
-                        <Button type="submit" className="btn-block">{submitBtn}</Button>
+                {submitBtn && (
+                    <div className="row justify-content-center mt-4">
+                        <div className="col col-md-8 col-lg-6 col-xl-4">
+                            <Button type="submit" className="btn-block">{submitBtn}</Button>
+                        </div>
                     </div>
-                </div>
+                )}
             </form>
         )
     }
