@@ -20,7 +20,7 @@ class AllUsers extends Component {
                         <HeaderTitle>
                             All users <small><span className="badge badge-primary ml-3">{users.length}</span></small>
                         </HeaderTitle>
-                        <Input placeholder="Search user" type="text" onChange={this.onSearch} />
+                        <Input type="text" placeholder="Search user" onChange={this.onSearch} style={{ minWidth: 250 }} />
                     </AlignCJustifyB>
                     <UsersList onUsers={this.onUsers} search={search} />
                 </div>
