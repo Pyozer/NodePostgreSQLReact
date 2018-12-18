@@ -8,7 +8,7 @@ import { fetchData } from '../../utils/Api'
 
 class NewProject extends Component {
     onSubmit = async (data) => {
-        const { user, authToken } = this.context
+        const { authToken } = this.context
 
         await fetchData(
             `/api/projects`,

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { PageTitle } from '../../utils/Context';
-import { AlignCJustifyB, HeaderTitle, HorizontalCenter } from '../../components/UI';
+import { AlignCJustifyB, HeaderTitle } from '../../components/UI';
 import { UsersList } from '../../components/User';
-import { Form, Input } from '../../components/Form';
+import { Input } from '../../components/Form';
 
 class AllUsers extends Component {
     state = { users: [], search: "" }
