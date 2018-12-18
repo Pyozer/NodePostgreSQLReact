@@ -46,10 +46,10 @@ class UserProfile extends Component {
 
                     {message && <Alert message={message} />}
 
-                    <HeaderTitle centerTitle={false}>{nickname}'s informations</HeaderTitle>
+                    <HeaderTitle centerTitle={false}>Informations</HeaderTitle>
                     <UserInfos user={user} />
 
-                    <HeaderTitle centerTitle={false}>{nickname}'s projects <small><Badge className="ml-3">{projects.length}</Badge></small></HeaderTitle>
+                    <HeaderTitle centerTitle={false}>Projects <small><Badge className="ml-3">{projects.length}</Badge></small></HeaderTitle>
                     <UserProjects userId={userId} onProjects={this.onProjects} isEdit={false} />
                 </div>
             </PageTitle>

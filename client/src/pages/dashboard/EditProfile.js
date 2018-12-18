@@ -10,7 +10,8 @@ class EditProfile extends Component {
         if (Object.keys(data).length === 0)
             throw new Error("You must provide at least one modification to update your profile !")
 
-        const result = await fetchData(`/api/users/${this.context.user.uuid}`, this.context.authToken, JSON.stringify(data), 'PUT')
+        const { user, authToken } = this.context
+        const result = await fetchData(`/api/users/${user.uuid}`, authToken, JSON.stringify(data), 'PUT')
         this.context.updateUser(result.data.user)
         return new Message("Your profile has been successfully updated !", "success")
     }
