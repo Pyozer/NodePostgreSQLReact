@@ -32,8 +32,20 @@ class UsersList extends Component {
         this.setState({ message })
     }
 
+    getUsers() {
+        let { state, props } = this
+        const search = (props.search || "").trim().toLowerCase()
+        return state.users.filter(({ uuid, nickname }) =>
+            uuid.includes(search) || nickname.toLowerCase().includes(search)
+        )
+    }
+
     render() {
-        const { message, users } = this.state
+        let { message } = this.state
+        const users = this.getUsers()
+
+        if (users.length === 0)
+            message = new Message(`No user found with "${this.props.search}"`, "info")
 
         if (message) return <Alert message={message} />
 
