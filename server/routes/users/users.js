@@ -1,6 +1,6 @@
 import { Router } from "express"
+import { Op } from "sequelize"
 import User from "../../models/user"
-import Project from "../../models/project";
 
 const api = Router({ mergeParams: true })
 
@@ -11,14 +11,14 @@ api.get("/", async (req, res) => {
   })
 })
 
-api.get("/:uuid", async (req, res) => {
+api.get("/:identifier", async (req, res) => {
   try {
-    const { uuid } = req.params
+    const { identifier } = req.params
 
-    if (!uuid)
-      throw new Error("You must provide the user id !")
+    if (!identifier)
+      throw new Error("You must provide the user id or nickname !")
 
-    const user = await User.findByPk(uuid)
+    const user = await getUserByIdOrNickname(identifier)
 
     if (!user)
       throw new Error("The specified user was not found")
@@ -33,14 +33,14 @@ api.get("/:uuid", async (req, res) => {
   }
 })
 
-api.get("/:uuid/projects", async (req, res) => {
+api.get("/:identifier/projects", async (req, res) => {
   try {
-    const { uuid } = req.params
+    const { identifier } = req.params
 
-    if (!uuid)
-      throw new Error("You must provide the user id !")
+    if (!identifier)
+      throw new Error("You must provide the user id or nickname !")
 
-    const user = await User.findByPk(uuid)
+    const user = await getUserByIdOrNickname(identifier)
 
     if (!user)
       throw new Error("The specified user was not found")
@@ -56,5 +56,18 @@ api.get("/:uuid/projects", async (req, res) => {
     })
   }
 })
+
+function getUserByIdOrNickname(identifier) {
+  if (/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(identifier))
+    return User.findByPk(identifier)
+
+  return User.findOne({
+    where: {
+      nickname: {
+        [Op.iLike]: identifier
+      }
+    }
+  })
+}
 
 export default api

@@ -3,19 +3,19 @@ import passport from "passport"
 
 const api = Router({ mergeParams: true })
 
-api.get("/me", passport.authenticate("jwt", { session: false }), async (req, res) => {    
+api.get("/me", passport.authenticate("jwt", { session: false }), async (req, res) => {
     const { user } = req
     res.status(200).json({
         data: { user }
     })
 })
 
-api.put("/:uuid", passport.authenticate("jwt", { session: false }), async (req, res) => {
+api.put("/:identifier", passport.authenticate("jwt", { session: false }), async (req, res) => {
     try {
         const { user, params, body } = req
-        const { uuid } = params
+        const { identifier } = params
 
-        if (user.uuid !== uuid)
+        if (user.uuid !== identifier && user.nickname !== identifier)
             throw new Error("You can only edit your account, not others!")
 
         const { nickname, email, password, password_confirmation } = body
@@ -25,10 +25,7 @@ api.put("/:uuid", passport.authenticate("jwt", { session: false }), async (req, 
 
         const userUpdated = await user.update(
             JSON.parse(JSON.stringify({ nickname, email, password, password_confirmation })), // Remove null fields
-            {
-                returning: true,
-                where: { uuid }
-            }
+            { returning: true }
         )
 
         res.status(200).json({
@@ -41,11 +38,11 @@ api.put("/:uuid", passport.authenticate("jwt", { session: false }), async (req, 
     }
 })
 
-api.delete("/:uuid", passport.authenticate("jwt", { session: false }), async (req, res) => {
+api.delete("/:identifier", passport.authenticate("jwt", { session: false }), async (req, res) => {
     try {
         const { user, params } = req
-        const { uuid } = params
-        if (user.uuid !== uuid)
+        const { identifier } = params
+        if (user.uuid !== identifier && user.nickname !== identifier)
             throw new Error("You can only delete your account, not others !")
 
         await user.destroy()

@@ -7,20 +7,20 @@ I used create-react-app to build React App and Express to make the node server.
 
 There is differents routes on the server:
 
-| Method | Route                 | Description                            | AuthToken |
-| ------ | --------------------- | -------------------------------------- | --------- |
-| POST   | /auth/signIn          | Login user and get auth token          | No        |
-| POST   | /auth/signUp          | Register a new user and get auth token | No        |
-| GET    | /users                | Get all users                          | No        |
-| GET    | /users/me             | Get connected user (yse Auth Token)    | Yes       |
-| GET    | /users/:uuid          | Get specific user by ID                | No        |
-| PUT    | /users/:uuid          | Update specific user                   | Yes       |
-| DELETE | /users/:uuid          | Delete user account                    | Yes       |
-| GET    | /users/:uuid/projects | Get all projects of a specific user    | No        |
-| GET    | /projects/            | Get all projects                       | No        |
-| GET    | /projects/:projectId  | Get a specific project                 | No        |
-| PUT    | /projects/:projectId  | Update a project                       | Yes       |
-| DELETE | /projects/:projectId  | Delete a project                       | Yes       |
+| Method | Route                       | Description                            | AuthToken |
+| ------ | --------------------------- | -------------------------------------- | --------- |
+| POST   | /auth/signIn                | Login user and get auth token          | No        |
+| POST   | /auth/signUp                | Register a new user and get auth token | No        |
+| GET    | /users                      | Get all users                          | No        |
+| GET    | /users/me                   | Get connected user (yse Auth Token)    | Yes       |
+| GET    | /users/:identifier          | Get specific user by ID                | No        |
+| PUT    | /users/:identifier          | Update specific user                   | Yes       |
+| DELETE | /users/:identifier          | Delete user account                    | Yes       |
+| GET    | /users/:identifier/projects | Get all projects of a specific user    | No        |
+| GET    | /projects/                  | Get all projects                       | No        |
+| GET    | /projects/:projectId        | Get a specific project                 | No        |
+| PUT    | /projects/:projectId        | Update a project                       | Yes       |
+| DELETE | /projects/:projectId        | Delete a project                       | Yes       |
 
 When it's require, you must pass your AuthToken as Bearer Token in the header, in 'Authorization'.
 

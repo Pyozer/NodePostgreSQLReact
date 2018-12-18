@@ -53,7 +53,7 @@ class UsersList extends Component {
             <div className="row">
                 {users.map(({ uuid, nickname }) => (
                     <div key={uuid} className="p-2 col col-md-6 col-lg-4">
-                        <Link to={`/users/${uuid}`} className="no-decoration">
+                        <Link to={`/users/${nickname}`} className="no-decoration">
                             <Card className="scale-effect">
                                 <div className="d-flex align-items-center">
                                     <ReactAvatar name={nickname} round={true} size={50} />

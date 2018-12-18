@@ -13,14 +13,17 @@ passport.use(
     async (nickname, password, next) => {
       const user = await User.findOne({
         where: {
-          nickname: { [Op.iLike]: `${nickname}` }
+          nickname: {
+            [Op.iLike]: nickname
+          }
         }
       })
 
       if (!user)
         return next("Nickname doesn't exist")
 
-      if (!(await user.checkPassword(password)))
+      const isCorrectPassword = await user.checkPassword(password)
+      if (!isCorrectPassword)
         return next("Password doesn't match")
 
       return next(null, user)
@@ -37,7 +40,7 @@ passport.use(
     async (jwtPayload, next) => {
       try {
         const user = await User.findByPk(jwtPayload.uuid)
-        
+
         if (!user)
           return next("User doesn't exist")
 
