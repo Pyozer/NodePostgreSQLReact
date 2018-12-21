@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
-import ReactAvatar from 'react-avatar';
 import { PageTitle } from '../../utils/Context';
 import Message from '../../models/Message';
 import { HeaderTitle, Alert, AlignCJustifyC, Badge, ProfilePicture } from '../../components/UI';

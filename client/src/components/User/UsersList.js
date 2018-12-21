@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { Alert, Card, ProfilePicture } from '../UI'
 import { fetchData } from '../../utils/Api'
 import Message from '../../models/Message';
-import ReactAvatar from 'react-avatar';
 
 class UsersList extends Component {
     state = { message: null, users: [] }

@@ -60,7 +60,7 @@ class EditProject extends Component {
 
     render() {
         const { message, project } = this.state
-        const { id, name, description } = project
+        const { id } = project
 
         return (
             <PageTitle title="Edit project">
