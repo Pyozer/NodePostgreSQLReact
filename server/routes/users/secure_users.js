@@ -18,13 +18,13 @@ api.put("/:identifier", passport.authenticate("jwt", { session: false }), async 
         if (user.uuid !== identifier && user.nickname !== identifier)
             throw new Error("You can only edit your account, not others!")
 
-        const { nickname, email, password, password_confirmation } = body
+        const { password, password_confirmation } = body
 
         if (password && !password_confirmation || !password && password_confirmation)
             throw new Error("You must provide password and password confirmation if you want to change password !")
 
         const userUpdated = await user.update(
-            JSON.parse(JSON.stringify({ nickname, email, password, password_confirmation })), // Remove null fields
+            JSON.parse(JSON.stringify(body)), // Remove null fields
             { returning: true }
         )
 

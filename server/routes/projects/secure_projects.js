@@ -32,9 +32,8 @@ api.put("/:projectId", passport.authenticate("jwt", { session: false }), async (
         if (user.uuid !== project.userId)
             throw new Error("You can only edit projects of your account, not others!")
 
-        const { name } = body
         const projectUpdated = await project.update(
-            JSON.parse(JSON.stringify({ name })), // Remove null fields
+            JSON.parse(JSON.stringify(body)), // Remove null fields
             { returning: true }
         )
 
