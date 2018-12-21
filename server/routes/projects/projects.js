@@ -29,9 +29,9 @@ api.get("/:projectId", async (req, res) => {
     res.status(200).json({
       data: { project }
     })
-  } catch (e) {
+  } catch ({ message }) {
     res.status(400).json({
-      error: { message: e.message }
+      error: { message }
     })
   }
 })

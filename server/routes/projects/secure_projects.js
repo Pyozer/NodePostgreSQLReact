@@ -41,9 +41,9 @@ api.put("/:projectId", passport.authenticate("jwt", { session: false }), async (
         res.status(200).json({
             data: { project: projectUpdated }
         })
-    } catch (e) {
+    } catch ({ message }) {
         res.status(400).json({
-            error: { message: e.message }
+            error: { message }
         })
     }
 })
@@ -66,9 +66,9 @@ api.delete("/:projectId", passport.authenticate("jwt", { session: false }), asyn
         res.status(200).json({
             message: `The project #${projectId} has been successfully deleted.`
         })
-    } catch (e) {
+    } catch ({ message }) {
         res.status(400).json({
-            error: { message: e.message }
+            error: { message }
         })
     }
 })

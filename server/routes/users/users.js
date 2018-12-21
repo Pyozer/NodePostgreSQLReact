@@ -26,9 +26,9 @@ api.get("/:identifier", async (req, res) => {
     res.status(200).json({
       data: { user }
     })
-  } catch (e) {
+  } catch ({ message }) {
     res.status(400).json({
-      error: { message: e.message }
+      error: { message }
     })
   }
 })

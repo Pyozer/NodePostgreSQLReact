@@ -17,7 +17,7 @@ class UsersList extends Component {
             const result = await fetchData(`/api/users/`)
             const { users } = result.data
             if (users.length === 0) {
-                this.setMessage(new Message("There is no users", "info"))
+                this.setMessage(new Message(`No user found with "${this.props.search}"`, "info"))
             } else {
                 this.setState({ users })
                 if (this.props.onUsers)
@@ -43,9 +43,6 @@ class UsersList extends Component {
     render() {
         let { message } = this.state
         const users = this.getUsers()
-
-        if (users.length === 0)
-            message = new Message(`No user found with "${this.props.search}"`, "info")
 
         if (message) return <Alert message={message} />
 

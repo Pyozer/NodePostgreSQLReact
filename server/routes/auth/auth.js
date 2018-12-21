@@ -24,7 +24,7 @@ api.post("/register", async (req, res) => {
       meta: { token }
     })
   } catch ({ message }) {
-    res.json({ error: { message } })
+    res.status(400).json({ error: { message } })
   }
 })
 

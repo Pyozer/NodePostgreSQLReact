@@ -31,9 +31,9 @@ api.put("/:identifier", passport.authenticate("jwt", { session: false }), async 
         res.status(200).json({
             data: { user: userUpdated }
         })
-    } catch (e) {
+    } catch ({ message }) {
         res.status(400).json({
-            error: { message: e.message }
+            error: { message }
         })
     }
 })
@@ -50,9 +50,9 @@ api.delete("/:identifier", passport.authenticate("jwt", { session: false }), asy
         res.status(200).json({
             message: "User successfully deleted"
         })
-    } catch (e) {
+    } catch ({ message }) {
         res.status(400).json({
-            error: { message: e.message }
+            error: { message }
         })
     }
 })
