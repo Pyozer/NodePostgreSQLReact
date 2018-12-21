@@ -14,4 +14,5 @@ export { default as FullCenter } from './FullCenter.js'
 export { default as HeaderTitle } from './HeaderTitle.js'
 export { default as HorizontalCenter } from './HorizontalCenter.js'
 export { default as Modal } from './Modal.js'
+export { default as ProfilePicture } from './ProfilePicture.js'
 

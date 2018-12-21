@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, NavLink, withRouter } from 'react-router-dom'
 import Avatar from 'react-avatar'
 import { LoginContext, ThemeContext } from '../../utils/Context'
-import { Button } from '.'
+import { Button, ProfilePicture } from '.'
 
 const Appbar = ({ history }) => (
     <ThemeContext.Consumer>
@@ -30,7 +30,7 @@ const Appbar = ({ history }) => (
                                         {isConnected ? (
                                             <div className="dropdown">
                                                 <button className="dropdown-toggle btn btn-transparent mx-3" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    <Avatar name={user.nickname} round={true} size={40} className="shadow-sm" />
+                                                    <ProfilePicture nickname={user.nickname} profile_picture={user.profile_picture} size={40} />
                                                     <span className="ml-3 mr-2"><strong>{user.nickname}</strong></span>
                                                 </button>
 

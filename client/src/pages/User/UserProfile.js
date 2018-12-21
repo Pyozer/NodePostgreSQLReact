@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom'
 import ReactAvatar from 'react-avatar';
 import { PageTitle } from '../../utils/Context';
 import Message from '../../models/Message';
-import { HeaderTitle, Alert, AlignCJustifyC, Badge } from '../../components/UI';
+import { HeaderTitle, Alert, AlignCJustifyC, Badge, ProfilePicture } from '../../components/UI';
 import { UserProjects, UserInfos } from '../../components/User';
 import { fetchData } from '../../utils/Api';
 
@@ -40,7 +40,7 @@ class UserProfile extends Component {
             <PageTitle title={`${nickname} profile`}>
                 <div className="container">
                     <AlignCJustifyC className="my-5">
-                        <ReactAvatar name={nickname} size={90} round={true} className="mr-4" />
+                        <ProfilePicture nickname={nickname} profile_picture={user.profile_picture} size={90} className="mr-4" />
                         <HeaderTitle centerTitle={false}>{nickname}</HeaderTitle>
                     </AlignCJustifyC>
 
