@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom'
 import { HeaderTitle, ButtonDeleteProject, Alert } from '../../components/UI'
-import { FormCard, Input } from '../../components/Form'
+import { FormCard, ProjectInputs } from '../../components/Form'
 import { PageTitle, LoginContext } from '../../utils/Context'
 import { fetchData } from '../../utils/Api'
 import Message from '../../models/Message'
@@ -60,7 +60,7 @@ class EditProject extends Component {
 
     render() {
         const { message, project } = this.state
-        const { id, name } = project
+        const { id, name, description } = project
 
         return (
             <PageTitle title="Edit project">
@@ -74,7 +74,7 @@ class EditProject extends Component {
                                     <FormCard onSubmit={this.onSubmit} btnValue="Update">
                                         <p><small><strong>Ignore a field to not update it</strong></small></p>
                                         <hr />
-                                        <Input type="text" label="Name" name="name" placeholder={name} defaultValue={name} />
+                                        <ProjectInputs project={project} />
                                     </FormCard>
                                 )}
                         </div>

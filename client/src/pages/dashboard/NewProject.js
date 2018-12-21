@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { toast } from 'react-toastify'
 import { withRouter } from 'react-router-dom'
 import { HeaderTitle } from '../../components/UI'
-import { FormCard, Input } from '../../components/Form'
+import { FormCard, ProjectInputs } from '../../components/Form'
 import { PageTitle, LoginContext } from '../../utils/Context'
 import { fetchData } from '../../utils/Api'
 
@@ -28,7 +28,7 @@ class NewProject extends Component {
                     <div className="d-flex justify-content-center">
                         <div className="col col-md-8 col-lg-6 ">
                             <FormCard onSubmit={this.onSubmit} btnValue="Create">
-                                <Input type="text" label="Name" name="name" placeholder="Project name" />
+                                <ProjectInputs />
                             </FormCard>
                         </div>
                     </div>
