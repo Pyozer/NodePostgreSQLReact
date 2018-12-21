@@ -72,20 +72,9 @@ export default class User extends Model {
         ],
         hooks: {
           async beforeValidate(userInstance) {
-            if (userInstance.password)
+            if (userInstance.password && userInstance.changed('password')) {
               userInstance.password_digest = await userInstance.generateHash()
-          },
-          async beforeSave(userInstance) {
-            if (!userInstance.isNewRecord && userInstance.changed("password"))
-              userInstance.password_digest = await userInstance.generateHash()
-          },
-          async beforeBulkUpdate(userInstance) {
-            if (userInstance.changed("password"))
-              userInstance.password_digest = await userInstance.generateHash()
-          },
-          async beforeUpdate(userInstance) {
-            if (userInstance.changed("password"))
-              userInstance.password_digest = await userInstance.generateHash()
+            }
           }
         }
       }
