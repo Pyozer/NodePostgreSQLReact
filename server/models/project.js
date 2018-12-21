@@ -15,6 +15,10 @@ export default class Project extends Model {
           validate: {
             notEmpty: true
           }
+        },
+        description: {
+          type: Sequelize.STRING,
+          allowNull: true
         }
       },
       {

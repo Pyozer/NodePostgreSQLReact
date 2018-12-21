@@ -38,6 +38,10 @@ export default class User extends Model {
             msg: "Email already in use"
           }
         },
+        profile_picture: {
+          type: Sequelize.STRING,
+          allowNull: true,
+        },
         password_digest: {
           type: Sequelize.STRING,
           allowNull: false,
