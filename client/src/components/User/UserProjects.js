@@ -42,10 +42,11 @@ class UserProjects extends Component {
 
         return (
             <div className="row">
-                {projects.map(({ id, name, createdAt, updatedAt }) => (
+                {projects.map(({ id, name, description, createdAt, updatedAt }) => (
                     <div key={id} className="p-2 col col-md-6 col-lg-4">
                         <Card>
-                            <h5>{name}</h5>
+                            <h4 className="font-weight-bold">{name}</h4>
+                            { description }
                             <hr />
                             <p>
                                 Created : <strong>{new Date(createdAt).toLocaleString('fr')}</strong>
