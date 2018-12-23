@@ -28,7 +28,7 @@ api.put("/:projectId", passport.authenticate("jwt", { session: false }), async (
         if (!project)
             throw new Error("The project you want to edit not exists !")
 
-        if (user.uuid !== project.userId)
+        if (user.uuid !== project.user_id)
             throw new Error("You can only edit projects of your account, not others!")
 
         const projectUpdated = await project.update(
@@ -56,7 +56,7 @@ api.delete("/:projectId", passport.authenticate("jwt", { session: false }), asyn
         if (!project)
             throw new Error("The project you want to delete not exists !")
 
-        if (user.uuid !== project.userId)
+        if (user.uuid !== project.user_id)
             throw new Error("You can only delete projects of your account, not others!")
 
         await project.destroy()

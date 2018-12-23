@@ -1,7 +1,7 @@
 import Sequelize, { Model } from "sequelize"
 import bcrypt from "bcrypt"
 
-export default class User extends Model {
+class User extends Model {
   static init(database) {
     return super.init(
       {
@@ -71,9 +71,7 @@ export default class User extends Model {
       {
         tableName: "users",
         sequelize: database,
-        indexes: [
-          { unique: true, fields: ["uuid", "nickname", "email"] }
-        ],
+        underscored: true,
         hooks: {
           async beforeValidate(userInstance) {
             if (userInstance.password && userInstance.changed('password')) {
@@ -105,3 +103,32 @@ export default class User extends Model {
     return values
   }
 }
+
+User.associate = (models) => {
+  User.hasMany(models.Project, {
+    foreignKey: {
+      name: "user_id",
+      allowNull: false
+    },
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  })
+
+  User.belongsToMany(User, {
+    as: 'userDest',
+    through: models.Friend,
+    foreignKey: 'friend_id',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  });
+
+  User.belongsToMany(User, {
+    as: 'friends',
+    through: models.Friend,
+    foreignKey: 'user_id',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  });
+}
+
+export default User

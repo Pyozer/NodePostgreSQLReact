@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
 import { PageTitle } from '../../utils/Context';
 import Message from '../../models/Message';
-import { HeaderTitle, Alert, AlignCJustifyC, Badge, ProfilePicture } from '../../components/UI';
+import { HeaderTitle, Alert, AlignCJustifyC, Badge, ProfilePicture, FriendButton, AlignCJustifyB } from '../../components/UI';
 import { UserProjects, UserInfos } from '../../components/User';
 import { fetchData } from '../../utils/Api';
 
@@ -45,7 +45,10 @@ class UserProfile extends Component {
 
                     {message && <Alert message={message} />}
 
-                    <HeaderTitle centerTitle={false}>Informations</HeaderTitle>
+                    <AlignCJustifyB className="my-5">
+                        <HeaderTitle centerTitle={false}>Informations</HeaderTitle>
+                        <FriendButton user={user.uuid} />
+                    </AlignCJustifyB>
                     <UserInfos user={user} />
 
                     <HeaderTitle centerTitle={false}>Projects <small><Badge className="ml-3">{projects.length}</Badge></small></HeaderTitle>

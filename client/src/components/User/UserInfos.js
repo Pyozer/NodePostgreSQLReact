@@ -9,11 +9,11 @@ const UserInfos = ({ user }) => {
     const info = {
         'nickname': new UserInfoRender("Nickname", () => user.nickname),
         'email': new UserInfoRender("Email", () => user.email),
-        'createdAt': new UserInfoRender("Date de création", () =>
-            new Date(user.createdAt).toLocaleString('fr-FR')
+        'created_at': new UserInfoRender("Date de création", () =>
+            new Date(user.created_at).toLocaleString('fr-FR')
         ),
-        'updatedAt': new UserInfoRender("Dernière modification", () =>
-            new Date(user.updatedAt).toLocaleString('fr-FR')
+        'updated_at': new UserInfoRender("Dernière modification", () =>
+            new Date(user.updated_at).toLocaleString('fr-FR')
         )
     }
     return (

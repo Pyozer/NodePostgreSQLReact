@@ -1,33 +1,31 @@
 import Sequelize, { Model } from "sequelize"
+import User from "./user";
 
-export default class Friend extends Model {
+class Friend extends Model {
   static init(database) {
     return super.init(
       {
-        userId: {
+        user_id: {
           type: Sequelize.UUID,
           allowNull: false,
-          primaryKey: true,
-          validate: {
-            notEmpty: true
-          }
+          primaryKey: true
         },
-        friendId: {
+        friend_id: {
           type: Sequelize.UUID,
           allowNull: false,
-          primaryKey: true,
-          validate: {
-            notEmpty: true
-          }
+          primaryKey: true
         },
       },
       {
         tableName: "friends",
         sequelize: database,
+        underscored: true,
         indexes: [
-          { unique: true, fields: ["userId", "friendId"] }
+          { unique: true, fields: ["user_id", "friend_id"] }
         ]
       }
     )
   }
 }
+
+export default Friend

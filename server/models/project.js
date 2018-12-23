@@ -24,6 +24,7 @@ export default class Project extends Model {
       {
         tableName: "projects",
         sequelize: database,
+        underscored: true,
         indexes: [
           { unique: true, fields: ["id", "name"] }
         ]

@@ -28,7 +28,7 @@ class EditProject extends Component {
 
             const result = await fetchData(`/api/projects/${id}`, authToken)
             const { project } = result.data
-            if (project.userId !== user.uuid) {
+            if (project.user_id !== user.uuid) {
                 toast.error('This project is no yours, you cannot edit it !')
                 this.props.history.push('/')
             } else {

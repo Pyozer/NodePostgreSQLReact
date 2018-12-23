@@ -4,9 +4,7 @@ import secureProjects from './secure_projects'
 
 const api = Router({ mergeParams: true })
 
-// Use router with route '/me' before router with route '/:uuid'
-// Because /:uuid match /me
-api.use("/", secureProjects)
 api.use("/", projects)
+api.use("/", secureProjects)
 
 export default api

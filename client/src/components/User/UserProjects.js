@@ -42,16 +42,16 @@ class UserProjects extends Component {
 
         return (
             <div className="row">
-                {projects.map(({ id, name, description, createdAt, updatedAt }) => (
+                {projects.map(({ id, name, description, created_at, updated_at }) => (
                     <div key={id} className="p-2 col col-md-6 col-lg-4">
                         <Card>
                             <h4 className="font-weight-bold">{name}</h4>
                             { description }
                             <hr />
                             <p>
-                                Created : <strong>{new Date(createdAt).toLocaleString('fr')}</strong>
+                                Created : <strong>{new Date(created_at).toLocaleString('fr')}</strong>
                                 <br />
-                                Last update : <strong>{new Date(updatedAt).toLocaleString('fr')}</strong>
+                                Last update : <strong>{new Date(updated_at).toLocaleString('fr')}</strong>
                             </p>
                             {isEdit && (
                                 <div className="d-flex justify-content-end">

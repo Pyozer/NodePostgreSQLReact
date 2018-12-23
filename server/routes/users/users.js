@@ -1,10 +1,14 @@
 import { Router } from "express"
 import { Op } from "sequelize"
 import User from "../../models/user"
-import { secureFriends } from "../friends"
+import friends from "../friends"
+
+export function isUUID(value) {
+  return /^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(value)
+}
 
 export function getUserByIdOrNickname(identifier) {
-  if (/^[0-9A-F]{8}-[0-9A-F]{4}-[4][0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i.test(identifier))
+  if (isUUID(identifier))
     return User.findByPk(identifier)
 
   return User.findOne({
@@ -66,27 +70,6 @@ api.get("/:identifier/projects", async (req, res) => {
   }
 })
 
-api.get("/:identifier/friends", async (req, res) => {
-  try {
-    const { uuid } = req.userByIdentifier
-    let friends = await Friend.findAll({
-      where: { userId: uuid },
-      include: [{
-        model: User,
-        where: { uuid }
-      }]
-    })
-
-    res.status(200).json({
-      data: { friends }
-    })
-  } catch ({ message }) {
-    res.status(400).json({
-      error: { message }
-    })
-  }
-})
-
-api.use('/:identifier/friends', secureFriends)
+api.use('/:identifier/friends', friends)
 
 export default api

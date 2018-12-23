@@ -23,14 +23,14 @@ api.post("/", passport.authenticate("jwt", { session: false }), async (req, res)
         if (!friendUser)
             throw new Error("The user specify to be your friend not exists !")
 
-        const { uuid: userId } = user
-        const { uuid: friendId } = friendUser
-        const friendData = { userId, friendId }
+        const { uuid: user_id } = user
+        const { uuid: friend_id } = friendUser
+        const friendData = { user_id, friend_id }
 
         const friend = await Friend.find({ where: friendData })
         if (friend) {
             await friend.destroy()
-            res.status(202).json()
+            res.status(202).json({ data: {} })
         } else {
             const friend = await Friend.create(friendData)
             res.status(201).json({
