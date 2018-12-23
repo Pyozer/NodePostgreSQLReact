@@ -8,8 +8,7 @@ api.post("/", passport.authenticate("jwt", { session: false }), async (req, res)
     try {
         const { user, body } = req
 
-        const { name } = body
-        const project = await user.createProject({ name })
+        const project = await user.createProject(body)
 
         res.status(201).json({
             data: { project }
