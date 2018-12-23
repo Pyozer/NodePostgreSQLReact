@@ -1,0 +1,1 @@
+export { default as secureFriends } from './secure_friends'
