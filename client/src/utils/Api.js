@@ -14,6 +14,8 @@ export const fetchData = async (url, authToken, body, method = 'GET') => {
         else
             return result
     } catch ({ message }) {
+        if (message === "The string did not match the expected pattern.") // Server down
+            throw new Error("HTTP request failed, server is probably down !")
         throw new Error(message)
     }
 }
