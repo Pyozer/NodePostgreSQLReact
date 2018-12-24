@@ -18,23 +18,25 @@ class UsersList extends Component {
 
     async fetchUsersList() {
         try {
-            const result = await fetchData(this.props.url || `/api/users/`)
+            const { url, search, onUsers } = this.props
+            const result = await fetchData(url || `/api/users/`)
+            const { data } = result
             let users = []
-            if (result.data.users)
-                users = result.data.users
-            else if (result.data.friends)
-                users = result.data.friends
+            if (data.users)
+                users = data.users
+            else if (data.friends)
+                users = data.friends
 
             if (users.length === 0) {
-                if (this.props.search)
-                    this.setMessage(new Message(`No user found with "${this.props.search}"`, "info"))
+                if (search)
+                    this.setMessage(new Message(`No user found with "${search}"`, "info"))
                 else
-                    this.setMessage(new Message(`No user found`, "info"))
+                    this.setMessage(new Message(`Empty list`, "info"))
             } else {
-                this.setState({ users })
-                if (this.props.onUsers)
-                    this.props.onUsers(users)
+                this.setState({ users, message: null })
             }
+            if (onUsers)
+                onUsers(users)
         } catch ({ message }) {
             this.setMessage(new Message(message, "danger"))
         }
@@ -44,17 +46,16 @@ class UsersList extends Component {
         this.setState({ message })
     }
 
-    getUsers() {
-        let { state, props } = this
-        const search = (props.search || "").trim().toLowerCase()
-        return state.users.filter(({ uuid, nickname }) =>
-            uuid.includes(search) || nickname.toLowerCase().includes(search)
+    getUsers(search = "") {
+        const searchF = search.trim().toLowerCase()
+        return this.state.users.filter(({ uuid, nickname }) =>
+            uuid.includes(searchF) || nickname.toLowerCase().includes(searchF)
         )
     }
 
     render() {
-        let { message } = this.state
-        const users = this.getUsers()
+        let { message, search } = this.state
+        const users = this.getUsers(search || "")
 
         if (message) return <Alert message={message} />
 

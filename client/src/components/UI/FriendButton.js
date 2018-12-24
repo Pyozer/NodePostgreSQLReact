@@ -15,7 +15,8 @@ class FriendButton extends Component {
         try {
             const { user } = this.context
             const result = await fetchData(`/api/users/${user.nickname}/friends/${this.props.user}`)
-            this.setState({ isFriend: result.data.friend ? true : false })
+            const isFriend = result.data.friend ? true : false
+            this.setState({ isFriend })
         } catch ({ message }) {
             toast.error(message)
         }
@@ -31,7 +32,12 @@ class FriendButton extends Component {
                 JSON.stringify({ friendIdentifier }),
                 'POST'
             )
-            this.setState({ isFriend: result.data.friend ? true : false })
+            const isFriend = result.data.friend ? true : false
+            this.setState({ isFriend })
+            if (isFriend)
+                toast.success(`${user.nickname} is now your friend !`)
+            else
+                toast.success(`${user.nickname} has been deleted from your friend list !`)
         } catch ({ message }) {
             toast.error(message)
         }

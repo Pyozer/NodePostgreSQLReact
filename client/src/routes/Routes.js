@@ -12,6 +12,7 @@ export const SignRoute = ({ match }) => (
         <Route component={PageNotFound} />
     </Switch>
 )
+
 export const DashboardRoute = ({ match }) => (
     <Switch>
         <Route exact path={`${match.url}`} component={Dashboard} />

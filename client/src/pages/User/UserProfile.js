@@ -49,12 +49,13 @@ class UserProfileContent extends Component {
         const urlFriends = `/api/users/${user.nickname}/friends/`
 
         const userLogged = this.context.user
-        const isFriendBtn = user.uuid && (!userLogged || (userLogged && userLogged.uuid !== user.uuid))
+        
+        const isFriendBtn = user.uuid && userLogged && userLogged.uuid !== user.uuid
 
         return (
             <PageTitle title={`${nickname} profile`}>
                 <div className="container">
-                    <AlignCJustifyC className="my-5">
+                    <AlignCJustifyC className="mt-5 mb-3">
                         <ProfilePicture nickname={nickname} profile_picture={user.profile_picture} size={90} className="mr-4" />
                         <HeaderTitle centerTitle={false}>{nickname}</HeaderTitle>
                     </AlignCJustifyC>
@@ -65,7 +66,7 @@ class UserProfileContent extends Component {
                         <HeaderTitle centerTitle={false}>Informations</HeaderTitle>
                         {isFriendBtn && <FriendButton user={user.nickname} />}
                     </AlignCJustifyB>
-                    {user.uuid && <UserInfos user={user} />}
+                    <UserInfos user={user} />
 
                     <HeaderTitle centerTitle={false}>Projects <small><Badge className="ml-3">{projects.length}</Badge></small></HeaderTitle>
                     <UserProjects user={user.nickname} onProjects={this.onProjects} isEdit={false} />
@@ -73,7 +74,7 @@ class UserProfileContent extends Component {
                     <HeaderTitle centerTitle={false}>
                         Friends <small><span className="badge badge-primary ml-3">{friends.length}</span></small>
                     </HeaderTitle>
-                    {user.uuid && <UsersList onUsers={this.onFriends} url={urlFriends} />}
+                    <UsersList onUsers={this.onFriends} url={urlFriends} />
                 </div>
             </PageTitle>
         );

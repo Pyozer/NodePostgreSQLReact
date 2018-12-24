@@ -18,16 +18,16 @@ class UserProjects extends Component {
 
     async fetchUserProjects() {
         try {
-            const { user } = this.props
+            const { user, onProjects } = this.props
             const result = await fetchData(`/api/users/${user}/projects`)
             const { projects } = result.data
             if (projects.length === 0) {
-                this.setMessage(new Message("This user has no project.", "info"))
+                this.setMessage(new Message("Empty project list", "info"))
             } else {
-                this.setState({ projects })
-                if (this.props.onProjects)
-                    this.props.onProjects(projects)
+                this.setState({ projects, message: null })
             }
+            if (onProjects)
+                onProjects(projects)
 
         } catch ({ message }) {
             this.setMessage(new Message(message, "danger"))
@@ -51,7 +51,7 @@ class UserProjects extends Component {
                     <div key={id} className="p-2 col col-md-6 col-lg-4">
                         <Card>
                             <h4 className="font-weight-bold">{name}</h4>
-                            { description }
+                            {description}
                             <hr />
                             <p>
                                 Created : <strong>{new Date(created_at).toLocaleString('fr')}</strong>
