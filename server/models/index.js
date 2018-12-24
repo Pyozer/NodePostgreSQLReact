@@ -6,7 +6,7 @@ import Friend from "./friend"
 // postgres://USER:PASS@HOST:PORT/DBNAME
 // createdb sanji.dev
 export const db = new Sequelize(process.env.DATABASE_URL, {
-    logging: true
+    logging: false
 })
 
 User.init(db)
