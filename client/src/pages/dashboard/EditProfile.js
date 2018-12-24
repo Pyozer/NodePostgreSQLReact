@@ -28,7 +28,7 @@ class EditProfile extends Component {
                                     <FormCard onSubmit={this.onSubmit} btnValue="Update">
                                         <p><small><strong>Ignore a field to not update it</strong></small></p>
                                         <hr />
-                                        <UserInputs user={user} />
+                                        <UserInputs user={user} isSignUp={false} />
                                     </FormCard>
                                 )}
                             </LoginContext.Consumer>

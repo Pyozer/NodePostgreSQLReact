@@ -19,7 +19,6 @@ class UserProfileContent extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.userId !== prevProps.userId) {
-            this.setState({ user: null })
             this.fetchUserData()
         }
     }
