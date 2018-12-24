@@ -8,13 +8,12 @@ const api = Router({ mergeParams: true })
 api.post("/register", async (req, res) => {
   try {
     const { nickname, email, password, password_confirmation } = req.body
-    const user = new User({
+    const user = await User.create({
       nickname,
       email,
       password,
       password_confirmation
     })
-    await user.save()
 
     const payload = { uuid: user.uuid, nickname, email }
     const token = jwt.sign(payload, process.env.JWT_ENCRYPTION)
