@@ -11,10 +11,15 @@ class UserProjects extends Component {
         this.fetchUserProjects()
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.user !== prevProps.user)
+            this.fetchUserProjects()
+    }
+
     async fetchUserProjects() {
         try {
-            const { userId } = this.props
-            const result = await fetchData(`/api/users/${userId}/projects`)
+            const { user } = this.props
+            const result = await fetchData(`/api/users/${user}/projects`)
             const { projects } = result.data
             if (projects.length === 0) {
                 this.setMessage(new Message("This user has no project.", "info"))

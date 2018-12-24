@@ -6,17 +6,27 @@ import { HeaderTitle, Alert, AlignCJustifyC, Badge, ProfilePicture, FriendButton
 import { UserProjects, UserInfos, UsersList } from '../../components/User';
 import { fetchData } from '../../utils/Api';
 
-class UserProfile extends Component {
-    state = { message: null, user: {}, projects: [], friends: [] }
+const UserProfile = ({ match }) => (
+    <UserProfileContent userId={match.params.userId} />
+)
+
+class UserProfileContent extends Component {
+    state = { message: null, user: null, projects: [], friends: [] }
 
     componentWillMount() {
         this.fetchUserData()
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.userId !== prevProps.userId) {
+            this.setState({ user: null })
+            this.fetchUserData()
+        }
+    }
+
     async fetchUserData() {
         try {
-            const { userId } = this.props.match.params
-            const result = await fetchData(`/api/users/${userId}`)
+            const result = await fetchData(`/api/users/${this.props.userId}`)
             const { user } = result.data
             this.setState({ user })
         } catch ({ message }) {
@@ -32,13 +42,15 @@ class UserProfile extends Component {
     onFriends = (friends) => this.setState({ friends })
 
     render() {
-        const { userId } = this.props.match.params
         const { user, message, projects, friends } = this.state
+
+        if (!user) return <></>
 
         const nickname = user.nickname || ""
         const urlFriends = `/api/users/${user.nickname}/friends/`
 
-        const userConnected = this.context.user
+        const userLogged = this.context.user
+        const isFriendBtn = user.uuid && (!userLogged || (userLogged && userLogged.uuid !== user.uuid))
 
         return (
             <PageTitle title={`${nickname} profile`}>
@@ -52,12 +64,12 @@ class UserProfile extends Component {
 
                     <AlignCJustifyB>
                         <HeaderTitle centerTitle={false}>Informations</HeaderTitle>
-                        {user.uuid && userConnected.uuid !== user.uuid && <FriendButton user={user.uuid} />}
+                        {isFriendBtn && <FriendButton user={user.nickname} />}
                     </AlignCJustifyB>
                     {user.uuid && <UserInfos user={user} />}
 
                     <HeaderTitle centerTitle={false}>Projects <small><Badge className="ml-3">{projects.length}</Badge></small></HeaderTitle>
-                    <UserProjects userId={userId} onProjects={this.onProjects} isEdit={false} />
+                    <UserProjects user={user.nickname} onProjects={this.onProjects} isEdit={false} />
 
                     <HeaderTitle centerTitle={false}>
                         Friends <small><span className="badge badge-primary ml-3">{friends.length}</span></small>
@@ -68,6 +80,6 @@ class UserProfile extends Component {
         );
     }
 }
-UserProfile.contextType = LoginContext
+UserProfileContent.contextType = LoginContext
 
-export default withRouter(UserProfile);
+export default withRouter(UserProfile)

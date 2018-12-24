@@ -53,7 +53,7 @@ class Dashboard extends Component {
                             <Button><i className="fas fa-plus mr-2"></i> Add project</Button>
                         </Link>
                     </AlignCJustifyB>
-                    <UserProjects userId={user.uuid} onProjects={this.onProjects} isEdit={true} />
+                    <UserProjects user={user.nickname} onProjects={this.onProjects} isEdit={true} />
                 </div>
             </PageTitle>
         )

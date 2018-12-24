@@ -11,6 +11,11 @@ class UsersList extends Component {
         this.fetchUsersList()
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.url !== prevProps.url)
+            this.fetchUsersList()
+    }
+
     async fetchUsersList() {
         try {
             const result = await fetchData(this.props.url || `/api/users/`)
