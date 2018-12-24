@@ -18,6 +18,12 @@ api.get("/", async (req, res) => {
                 through: { attributes: [] }
             }]
         });
+
+        if (!userWithFriends)
+            userWithFriends = {
+                friends: []
+            }
+        
         const { friends } = userWithFriends
         res.status(200).json({
             data: { friends }

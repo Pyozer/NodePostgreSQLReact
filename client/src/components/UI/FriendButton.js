@@ -15,7 +15,7 @@ class FriendButton extends Component {
         try {
             const { user } = this.context
             const result = await fetchData(`/api/users/${user.nickname}/friends/${this.props.user}`)
-            this.setState({ isFriend: result.data && result.data.friend })
+            this.setState({ isFriend: result.data.friend ? true : false })
         } catch ({ message }) {
             toast.error(message)
         }
@@ -25,8 +25,13 @@ class FriendButton extends Component {
         try {
             const { user: friendIdentifier } = this.props
             const { user, authToken } = this.context
-            const result = await fetchData(`/api/users/${user.nickname}/friends`, authToken, JSON.stringify({ friendIdentifier }), 'POST')
-            this.setState({ isFriend: result.data && result.data.friend })
+            const result = await fetchData(
+                `/api/users/${user.nickname}/friends`,
+                authToken,
+                JSON.stringify({ friendIdentifier }),
+                'POST'
+            )
+            this.setState({ isFriend: result.data.friend ? true : false })
         } catch ({ message }) {
             toast.error(message)
         }
@@ -38,7 +43,7 @@ class FriendButton extends Component {
         if (isFriend === null)
             return <></>
 
-        return <Button outline={isFriend} onClick={this.addFriend}>
+        return <Button variant={isFriend ? 'danger' : 'primary'} outline={isFriend} onClick={this.addFriend}>
             {isFriend ? 'Remove Friend' : 'Add Friend'}
         </Button>
     }

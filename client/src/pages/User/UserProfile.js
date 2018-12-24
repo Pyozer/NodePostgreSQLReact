@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom'
-import { PageTitle } from '../../utils/Context';
+import { PageTitle, LoginContext } from '../../utils/Context';
 import Message from '../../models/Message';
 import { HeaderTitle, Alert, AlignCJustifyC, Badge, ProfilePicture, FriendButton, AlignCJustifyB } from '../../components/UI';
-import { UserProjects, UserInfos } from '../../components/User';
+import { UserProjects, UserInfos, UsersList } from '../../components/User';
 import { fetchData } from '../../utils/Api';
 
 class UserProfile extends Component {
-    state = { message: null, user: {}, projects: [] }
+    state = { message: null, user: {}, projects: [], friends: [] }
 
     componentWillMount() {
         this.fetchUserData()
@@ -29,12 +29,17 @@ class UserProfile extends Component {
     }
 
     onProjects = (projects) => this.setState({ projects })
+    onFriends = (friends) => this.setState({ friends })
 
     render() {
         const { userId } = this.props.match.params
-        const { user, message, projects } = this.state
+        const { user, message, projects, friends } = this.state
 
-        const nickname = user.nickname || "User"
+        const nickname = user.nickname || ""
+        const urlFriends = `/api/users/${user.nickname}/friends/`
+
+        const userConnected = this.context.user
+
         return (
             <PageTitle title={`${nickname} profile`}>
                 <div className="container">
@@ -45,18 +50,24 @@ class UserProfile extends Component {
 
                     {message && <Alert message={message} />}
 
-                    <AlignCJustifyB className="my-5">
+                    <AlignCJustifyB>
                         <HeaderTitle centerTitle={false}>Informations</HeaderTitle>
-                        <FriendButton user={user.uuid} />
+                        {user.uuid && userConnected.uuid !== user.uuid && <FriendButton user={user.uuid} />}
                     </AlignCJustifyB>
-                    <UserInfos user={user} />
+                    {user.uuid && <UserInfos user={user} />}
 
                     <HeaderTitle centerTitle={false}>Projects <small><Badge className="ml-3">{projects.length}</Badge></small></HeaderTitle>
                     <UserProjects userId={userId} onProjects={this.onProjects} isEdit={false} />
+
+                    <HeaderTitle centerTitle={false}>
+                        Friends <small><span className="badge badge-primary ml-3">{friends.length}</span></small>
+                    </HeaderTitle>
+                    {user.uuid && <UsersList onUsers={this.onFriends} url={urlFriends} />}
                 </div>
             </PageTitle>
         );
     }
 }
+UserProfile.contextType = LoginContext
 
 export default withRouter(UserProfile);
