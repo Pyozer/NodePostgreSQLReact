@@ -9,17 +9,6 @@ import { SignRoute, DashboardRoute, UsersRoute } from './routes/Routes'
 import { NotSecureRoute, SecureRoute } from './routes/CustomRoute'
 import { getLocalAuthToken, getLocalUser, setLocalAuthToken, setLocalUser, isDarkTheme, setDarkTheme } from './utils/Storage'
 
-/*
-1. Gérer persitance des données (localStorage)
-  A. Enregister le token handleUser
-  B. Recupérer quand refresh
-  C. Remove token on logout
-
-2. Créer page profile user + edit + remove
-
-3. Créer user projects + edit + remove
-*/
-
 class App extends Component {
   constructor(props) {
     super(props)
